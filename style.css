@@ -4073,8 +4073,8 @@ body::after {
     grid-template-columns: 34px 46px minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
-    min-height: 118px;
-    padding: 18px 20px;
+    min-height: 146px;
+    padding: 20px 20px;
 }
 
 .engine-stack-card .summary-icon {
@@ -4090,18 +4090,26 @@ body::after {
     letter-spacing: 0.05em;
 }
 
-.engine-stack-card .summary-info small {
+.engine-stack-card .summary-info {
+    min-width: 0;
+}
+
+.engine-description {
     display: block;
-    max-width: 760px;
-    line-height: 1.55;
+    max-width: 820px;
+    margin: 7px 0 0;
+    color: #8b98aa;
+    font-size: 11px;
+    line-height: 1.65;
 }
 
 .engine-capabilities {
     display: block;
-    margin-top: 7px;
+    margin-top: 9px;
     color: #758297;
     font-family: "JetBrains Mono", monospace;
-    font-size: 8px;
+    font-size: 9px;
+    line-height: 1.5;
     letter-spacing: 0.035em;
 }
 
@@ -4137,7 +4145,7 @@ body::after {
     .engine-stack-card {
         grid-template-columns: 28px 43px minmax(0, 1fr);
         gap: 12px;
-        min-height: 125px;
+        min-height: 150px;
         padding: 16px;
     }
 
