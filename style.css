@@ -4180,3 +4180,77 @@ body::after {
         border-bottom: 0;
     }
 }
+
+/* ============================================================
+   ACCOUNT TAKEOVER — UPLOAD LAYOUT / ALIGNMENT REFINEMENT
+   UI-only: upload inputs, IDs, handlers and analysis logic unchanged.
+   ============================================================ */
+.takeover-input-panel > .field {
+    margin-bottom: 16px;
+}
+
+.takeover-input-panel > .field > .field-label-row,
+.takeover-field-grid .field > .field-label-row {
+    min-height: 22px;
+}
+
+.takeover-input-panel > .field > .takeover-upload-box {
+    min-height: 230px;
+}
+
+.takeover-field-grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(260px, .92fr);
+    gap: 14px;
+    align-items: stretch;
+}
+
+.takeover-field-grid > .field,
+.takeover-field-grid > .takeover-format-card {
+    min-width: 0;
+}
+
+.takeover-field-grid > .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+}
+
+.takeover-field-grid > .field .takeover-upload-box {
+    flex: 1;
+    min-height: 180px;
+}
+
+.takeover-format-card {
+    min-height: 180px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.takeover-format-card .panel-kicker {
+    display: block;
+}
+
+.takeover-format-note {
+    margin-bottom: 0;
+}
+
+.takeover-actions {
+    margin-top: 16px;
+}
+
+@media (max-width: 700px) {
+    .takeover-input-panel > .field > .takeover-upload-box {
+        min-height: 210px;
+    }
+
+    .takeover-field-grid {
+        gap: 12px;
+    }
+
+    .takeover-field-grid > .field .takeover-upload-box,
+    .takeover-format-card {
+        min-height: 180px;
+    }
+}
