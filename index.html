@@ -1,2208 +1,4182 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CyberGuard — Organisation Security</title>
-
-    <meta
-        name="description"
-        content="CyberGuard organisation security platform for phishing, account takeover and digital impersonation detection."
-    >
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="./style.css?v=20261002">
-
-    <link rel="icon" href="./assets/cyberguard-logo.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="./assets/cyberguard-logo.svg">
-
-</head>
-
-<body>
-
-    <!-- =========================================================
-         APP SHELL
-    ========================================================== -->
-
-    <div class="app-shell">
+/* ============================================================
+   CYBERGUARD
+   Organisation Security Platform
+   ============================================================ */
+
+:root {
+    --bg: #070b12;
+    --bg-soft: #0b111b;
+    --panel: #0d141f;
+    --panel-light: #111a27;
+    --panel-hover: #141f2e;
+
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.13);
+
+    --text: #f4f7fb;
+    --text-soft: #b3bdcc;
+    --text-muted: #748095;
+
+    --blue: #3b82f6;
+    --blue-bright: #60a5fa;
+
+    --cyan: #22d3ee;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --orange: #f97316;
+    --red: #ef4444;
+    --purple: #a855f7;
+
+    --sidebar-width: 270px;
+    --topbar-height: 72px;
+
+    --radius: 14px;
+    --radius-small: 9px;
+
+    --shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+
+    --transition:
+        180ms ease;
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
 
-        <!-- =====================================================
-             SIDEBAR
-        ====================================================== -->
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        <aside class="sidebar" id="sidebar">
+html {
+    scroll-behavior: smooth;
+}
 
-            <div class="brand">
+body {
+    min-height: 100vh;
 
-                <div class="brand-mark">
-                    <img
-                        class="brand-logo"
-                        src="assets/cyberguard-logo.svg"
-                        alt="CyberGuard"
-                        width="34"
-                        height="34"
-                    >
-                </div>
+    background:
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(37, 99, 235, 0.08),
+            transparent 28%
+        ),
+        var(--bg);
 
-                <div class="brand-text">
-                    <h1>CYBER<span>GUARD</span></h1>
-                    <p>Organisation Security</p>
-                </div>
+    color: var(--text);
 
-            </div>
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
-            <div class="sidebar-section">
+    line-height: 1.5;
 
-                <p class="sidebar-label">WORKSPACE</p>
+    overflow-x: hidden;
+}
 
-                <button
-                    class="nav-item active"
-                    data-view="overview"
-                >
-                    <span class="nav-icon">⌂</span>
-                    <span>Security Overview</span>
-                </button>
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
 
-                <button
-                    class="nav-item"
-                    data-view="phishing"
-                >
-                    <span class="nav-icon">⌁</span>
-                    <span>Phishing Detection</span>
-                    <span class="nav-status live"></span>
-                </button>
+button {
+    border: 0;
+}
 
-                <button
-                    class="nav-item"
-                    data-view="takeover"
-                >
-                    <span class="nav-icon">◉</span>
-                    <span>Account Takeover</span>
-                    <span class="nav-status upcoming"></span>
-                </button>
+button,
+select {
+    cursor: pointer;
+}
 
-                <button
-                    class="nav-item"
-                    data-view="impersonation"
-                >
-                    <span class="nav-icon">◌</span>
-                    <span>Digital Impersonation</span>
-                    <span class="nav-status upcoming"></span>
-                </button>
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
-            </div>
 
-            <div class="sidebar-section">
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
 
-                <p class="sidebar-label">TOOLS</p>
+::-webkit-scrollbar {
+    width: 8px;
+}
 
-                <button
-                    class="nav-item"
-                    data-view="activity"
-                >
-                    <span class="nav-icon">◷</span>
-                    <span>Analysis History</span>
-                </button>
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
 
-                <button
-                    class="nav-item"
-                    data-view="organisation"
-                >
-                    <span class="nav-icon">⚙</span>
-                    <span>Organisation</span>
-                </button>
+::-webkit-scrollbar-thumb {
+    background: #263244;
+    border-radius: 999px;
+}
 
-            </div>
+::-webkit-scrollbar-thumb:hover {
+    background: #35445a;
+}
 
-            <div class="sidebar-bottom">
 
-                <div class="system-card">
+/* ============================================================
+   APP SHELL
+   ============================================================ */
 
-                    <div class="system-card-top">
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+}
 
-                        <span class="system-dot"></span>
 
-                        <span>Detection Engine</span>
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
 
-                    </div>
+.sidebar {
+    position: fixed;
 
-                    <strong>ONLINE</strong>
+    inset: 0 auto 0 0;
 
-                    <p>
-                        CyberGuard analysis services are available.
-                    </p>
+    width: var(--sidebar-width);
 
-                </div>
+    display: flex;
+    flex-direction: column;
 
-                <div class="sidebar-version">
-                    CYBERGUARD v1.0
-                </div>
+    background:
+        linear-gradient(
+            180deg,
+            rgba(12, 18, 28, 0.98),
+            rgba(7, 11, 18, 0.98)
+        );
 
-            </div>
+    border-right: 1px solid var(--border);
 
-        </aside>
+    z-index: 100;
+}
 
 
-        <!-- =====================================================
-             MAIN AREA
-        ====================================================== -->
+/* Brand */
 
-        <main class="main">
+.brand {
+    height: var(--topbar-height);
 
-            <!-- =================================================
-                 TOPBAR
-            ================================================== -->
+    display: flex;
+    align-items: center;
 
-            <header class="topbar">
+    gap: 12px;
 
-                <button
-                    class="mobile-menu"
-                    id="mobileMenu"
-                    aria-label="Open navigation"
-                >
-                    ☰
-                </button>
+    padding: 0 24px;
 
-                <div class="breadcrumb">
+    border-bottom: 1px solid var(--border);
+}
 
-                    <span>CyberGuard</span>
+.brand-mark {
+    width: 38px;
+    height: 38px;
 
-                    <span class="breadcrumb-separator">/</span>
+    display: grid;
+    place-items: center;
 
-                    <strong id="breadcrumbCurrent">
-                        Security Overview
-                    </strong>
+    border-radius: 9px;
 
-                </div>
+    overflow: hidden;
 
-                <div class="topbar-right">
+    box-shadow:
+        0 0 28px rgba(37, 99, 235, 0.28);
+}
 
-                    <div class="connection-status">
+.brand-logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 
-                        <span class="connection-dot"></span>
+.brand-shield {
+    font-size: 16px;
+    color: white;
+}
 
-                        <span>Engine Connected</span>
+.brand-text h1 {
+    font-size: 17px;
+    letter-spacing: 0.06em;
+    font-weight: 800;
+}
 
-                    </div>
+.brand-text h1 span {
+    color: var(--blue-bright);
+}
 
-                    <div class="organisation-chip">
+.brand-text p {
+    color: var(--text-muted);
 
-                        <span class="organisation-chip-icon">O</span>
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
 
-                        <span id="topOrganisationName">
-                            Your Organisation
-                        </span>
+    margin-top: 1px;
+}
 
-                    </div>
 
-                </div>
+/* Sidebar sections */
 
-            </header>
+.sidebar-section {
+    padding: 24px 14px 0;
+}
 
+.sidebar-label {
+    padding: 0 12px 9px;
 
-            <!-- =================================================
-                 CONTENT
-            ================================================== -->
+    color: #58657a;
 
-            <div class="content">
+    font-size: 10px;
+    font-weight: 700;
 
-                <!-- =============================================
-                     OVERVIEW
-                ============================================== -->
+    letter-spacing: 0.16em;
+}
 
-                <section
-                    class="view active"
-                    id="view-overview"
-                >
+.nav-item {
+    width: 100%;
 
-                    <div class="page-heading">
+    display: flex;
+    align-items: center;
 
-                        <div>
+    gap: 12px;
 
-                            <div class="eyebrow">
-                                ORGANISATION SECURITY
-                            </div>
+    padding: 11px 12px;
 
-                            <h2>
-                                Security Overview
-                            </h2>
+    margin-bottom: 4px;
 
-                            <p>
-                                Monitor threats, analyse suspicious
-                                activity and protect your organisation's
-                                digital environment.
-                            </p>
+    color: var(--text-soft);
 
-                        </div>
+    background: transparent;
 
-                        <button
-                            class="primary-button"
-                            id="openPhishingButton"
-                        >
-                            <span>+</span>
-                            New Analysis
-                        </button>
+    border-radius: 9px;
 
-                    </div>
+    text-align: left;
 
+    font-size: 14px;
+    font-weight: 500;
 
-                    <!-- Main Overview Grid -->
+    transition: var(--transition);
+}
 
-                    <div class="overview-grid">
+.nav-item:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+}
 
-                        <div class="panel threat-panel">
+.nav-item.active {
+    color: #ffffff;
 
-                            <div class="panel-header">
+    background:
+        linear-gradient(
+            90deg,
+            rgba(37, 99, 235, 0.18),
+            rgba(37, 99, 235, 0.06)
+        );
 
-                                <div>
+    box-shadow:
+        inset 2px 0 0 var(--blue);
+}
 
-                                    <span class="panel-kicker">
-                                        THREAT MONITOR
-                                    </span>
+.nav-icon {
+    width: 22px;
 
-                                    <h3>
-                                        Organisation Protection
-                                    </h3>
+    color: #69778d;
 
-                                </div>
+    text-align: center;
 
-                                <span class="panel-live">
-                                    ● LIVE
-                                </span>
+    font-size: 18px;
+}
 
-                            </div>
+.nav-item.active .nav-icon {
+    color: var(--blue-bright);
+}
 
-                            <div class="protection-visual">
+.nav-status {
+    width: 6px;
+    height: 6px;
 
-                                <div class="protection-ring">
+    margin-left: auto;
 
-                                    <div class="ring-inner">
+    border-radius: 50%;
+}
 
-                                        <span>READY</span>
+.nav-status.live {
+    background: var(--green);
 
-                                        <strong>03</strong>
+    box-shadow:
+        0 0 9px rgba(34, 197, 94, 0.8);
+}
 
-                                        <small>
-                                            active engines
-                                        </small>
+.nav-status.upcoming {
+    background: #475569;
+}
 
-                                    </div>
 
-                                </div>
+/* Sidebar bottom */
 
-                                <div class="protection-copy">
+.sidebar-bottom {
+    margin-top: auto;
 
-                                    <h4>
-                                        Three engines are ready.
-                                    </h4>
+    padding: 14px;
+}
 
-                                    <p>
-                                        Scan suspicious messages,
-                                        deceptive URLs, websites and
-                                        QR codes, analyse login
-                                        telemetry, and detect
-                                        impersonation of authorities,
-                                        executives and brands.
-                                    </p>
+.system-card {
+    padding: 14px;
 
-                                    <div class="protection-status">
-                                        <span>● ALL SYSTEMS OPERATIONAL</span>
-                                        <strong>03 / 03 ENGINES ACTIVE</strong>
-                                    </div>
+    background: rgba(255, 255, 255, 0.025);
 
-                                </div>
+    border: 1px solid var(--border);
 
-                                <div class="protection-coverage">
+    border-radius: 10px;
+}
 
-                                    <div class="coverage-header">
-                                        <span class="coverage-kicker">PROTECTION COVERAGE</span>
-                                        <span class="coverage-status">● ACTIVE</span>
-                                    </div>
+.system-card-top {
+    display: flex;
+    align-items: center;
 
-                                    <div class="coverage-list">
+    gap: 7px;
 
-                                        <div class="coverage-item">
-                                            <span class="coverage-index">01</span>
-                                            <div>
-                                                <strong>CONTENT &amp; MESSAGES</strong>
-                                                <small>Emails · SMS · Social messages</small>
-                                            </div>
-                                        </div>
+    color: var(--text-soft);
 
-                                        <div class="coverage-item">
-                                            <span class="coverage-index">02</span>
-                                            <div>
-                                                <strong>WEB &amp; LINKS</strong>
-                                                <small>URLs · Websites · QR codes</small>
-                                            </div>
-                                        </div>
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+}
 
-                                        <div class="coverage-item">
-                                            <span class="coverage-index">03</span>
-                                            <div>
-                                                <strong>ACCOUNT ACTIVITY</strong>
-                                                <small>Logins · Devices · Locations · Sessions</small>
-                                            </div>
-                                        </div>
+.system-dot {
+    width: 6px;
+    height: 6px;
 
-                                        <div class="coverage-item">
-                                            <span class="coverage-index">04</span>
-                                            <div>
-                                                <strong>IDENTITY SIGNALS</strong>
-                                                <small>Authority · Executive · Brand</small>
-                                            </div>
-                                        </div>
+    border-radius: 50%;
 
-                                    </div>
+    background: var(--green);
 
-                                </div>
+    box-shadow:
+        0 0 8px rgba(34, 197, 94, 0.8);
+}
 
-                            </div>
+.system-card strong {
+    display: block;
 
-                        </div>
+    margin-top: 8px;
 
+    color: var(--green);
 
+    font-family: "JetBrains Mono", monospace;
 
-                    </div>
+    font-size: 13px;
+}
 
+.system-card p {
+    margin-top: 5px;
 
-                    <!-- Protection Engines -->
+    color: var(--text-muted);
 
-                    <div class="engine-stack">
+    font-size: 11px;
 
-                        <div class="engine-stack-heading">
-                            <div>
-                                <span class="panel-kicker">PROTECTION ENGINES</span>
-                                <h3>Security Analysis Modes</h3>
-                            </div>
-                            <span class="engine-stack-count">03 / 03 ONLINE</span>
-                        </div>
+    line-height: 1.5;
+}
 
-                        <div
-                            class="summary-card engine-summary-card engine-stack-card"
-                            data-view-target="phishing"
-                            role="button"
-                            tabindex="0"
-                            aria-label="Open Phishing Detection"
-                        >
-                            <span class="engine-number">01</span>
+.sidebar-version {
+    padding: 15px 4px 0;
 
-                            <div class="summary-icon blue">⌁</div>
+    color: #3f4b5d;
 
-                            <div class="summary-info">
-                                <span class="summary-label">PHISHING DETECTION</span>
-                                <div class="summary-status-row">
-                                    <strong>ACTIVE</strong>
-                                    <span class="summary-online">● ONLINE</span>
-                                </div>
-                                <small>Detect suspicious messages, deceptive URLs, websites and QR-based phishing.</small>
-                                <span class="engine-capabilities">Messages · URLs · Websites · QR codes</span>
-                            </div>
+    font-family: "JetBrains Mono", monospace;
 
-                            <span class="summary-action">Open Scanner →</span>
-                        </div>
+    font-size: 10px;
+    text-align: center;
 
-                        <div
-                            class="summary-card engine-summary-card engine-stack-card"
-                            data-view-target="takeover"
-                            role="button"
-                            tabindex="0"
-                            aria-label="Open Account Takeover Detection"
-                        >
-                            <span class="engine-number">02</span>
+    letter-spacing: 0.1em;
+}
 
-                            <div class="summary-icon purple">◉</div>
 
-                            <div class="summary-info">
-                                <span class="summary-label">ACCOUNT TAKEOVER</span>
-                                <div class="summary-status-row">
-                                    <strong>ACTIVE</strong>
-                                    <span class="summary-online">● ONLINE</span>
-                                </div>
-                                <small>Detect abnormal login and account behaviour across your organisation.</small>
-                                <span class="engine-capabilities">Logins · Devices · Locations · Sessions</span>
-                            </div>
+/* ============================================================
+   MAIN
+   ============================================================ */
 
-                            <span class="summary-action">Analyse Activity →</span>
-                        </div>
+.main {
+    width: calc(100% - var(--sidebar-width));
 
-                        <div
-                            class="summary-card engine-summary-card engine-stack-card"
-                            data-view-target="impersonation"
-                            role="button"
-                            tabindex="0"
-                            aria-label="Open Digital Impersonation Detection"
-                        >
-                            <span class="engine-number">03</span>
+    margin-left: var(--sidebar-width);
 
-                            <div class="summary-icon orange">◌</div>
+    min-height: 100vh;
+}
 
-                            <div class="summary-info">
-                                <span class="summary-label">DIGITAL IMPERSONATION</span>
-                                <div class="summary-status-row">
-                                    <strong>ACTIVE</strong>
-                                    <span class="summary-online">● ONLINE</span>
-                                </div>
-                                <small>Detect attempts to impersonate authorities, executives and trusted brands.</small>
-                                <span class="engine-capabilities">Authority · Executive · Brand · Identity</span>
-                            </div>
 
-                            <span class="summary-action">Analyse Messages →</span>
-                        </div>
+/* ============================================================
+   TOPBAR
+   ============================================================ */
 
-                    </div>
+.topbar {
+    position: sticky;
 
+    top: 0;
 
-                </section>
+    height: var(--topbar-height);
 
+    display: flex;
+    align-items: center;
 
-                <!-- =============================================
-                     PHISHING
-                ============================================== -->
+    padding: 0 32px;
 
-                <section
-                    class="view"
-                    id="view-phishing"
-                >
+    background:
+        rgba(7, 11, 18, 0.86);
 
-                    <div class="page-heading phishing-heading">
+    border-bottom: 1px solid var(--border);
 
-                        <div>
+    backdrop-filter: blur(18px);
 
-                            <div class="eyebrow">
-                                THREAT DETECTION / 01
-                            </div>
+    z-index: 50;
+}
 
-                            <h2>
-                                Phishing Detection
-                            </h2>
+.breadcrumb {
+    display: flex;
+    align-items: center;
 
-                            <p>
-                                Analyse suspicious communication,
-                                URLs, websites and QR codes for
-                                phishing indicators.
-                            </p>
+    gap: 9px;
 
-                        </div>
+    color: var(--text-muted);
 
-                        <div class="engine-pill">
+    font-size: 13px;
+}
 
-                            <span></span>
+.breadcrumb strong {
+    color: var(--text-soft);
+    font-weight: 600;
+}
 
-                            BERT PHISHING ENGINE
+.breadcrumb-separator {
+    color: #3d4858;
+}
 
-                        </div>
+.topbar-right {
+    display: flex;
+    align-items: center;
 
-                    </div>
+    gap: 18px;
 
+    margin-left: auto;
+}
 
-                    <!-- Input Selector -->
+.connection-status {
+    display: flex;
+    align-items: center;
 
-                    <div class="analysis-tabs">
+    gap: 7px;
 
-                        <button
-                            class="analysis-tab active"
-                            data-analysis="message"
-                        >
+    color: var(--text-muted);
 
-                            <span class="tab-icon">✉</span>
+    font-size: 11px;
 
-                            <span>
-                                <strong>Message</strong>
-                                <small>
-                                    Email / SMS / Social
-                                </small>
-                            </span>
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
 
-                        </button>
+.connection-dot {
+    width: 6px;
+    height: 6px;
 
+    border-radius: 50%;
 
-                        <button
-                            class="analysis-tab"
-                            data-analysis="url"
-                        >
+    background: var(--green);
 
-                            <span class="tab-icon">↗</span>
+    box-shadow:
+        0 0 8px rgba(34, 197, 94, 0.7);
+}
 
-                            <span>
-                                <strong>URL / Website</strong>
-                                <small>
-                                    Link & website analysis
-                                </small>
-                            </span>
+.organisation-chip {
+    display: flex;
+    align-items: center;
 
-                        </button>
+    gap: 8px;
 
+    padding: 6px 10px 6px 6px;
 
-                        <button
-                            class="analysis-tab"
-                            data-analysis="qr"
-                        >
+    background: rgba(255, 255, 255, 0.04);
 
-                            <span class="tab-icon">▦</span>
+    border: 1px solid var(--border);
 
-                            <span>
-                                <strong>QR Code</strong>
-                                <small>
-                                    QR phishing analysis
-                                </small>
-                            </span>
+    border-radius: 999px;
 
-                        </button>
+    color: var(--text-soft);
 
-                    </div>
+    font-size: 12px;
+}
 
+.organisation-chip-icon {
+    width: 24px;
+    height: 24px;
 
-                    <!-- Message Analysis -->
+    display: grid;
+    place-items: center;
 
-                    <div
-                        class="analysis-layout analysis-panel active"
-                        id="analysis-message"
-                    >
+    border-radius: 50%;
 
-                        <div class="panel input-panel">
+    color: white;
 
-                            <div class="panel-header">
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
 
-                                <div>
+    font-size: 11px;
+    font-weight: 800;
+}
 
-                                    <span class="panel-kicker">
-                                        MESSAGE ANALYSIS
-                                    </span>
+.mobile-menu {
+    display: none;
 
-                                    <h3>
-                                        Inspect a suspicious message
-                                    </h3>
+    width: 36px;
+    height: 36px;
 
-                                </div>
+    margin-right: 12px;
 
-                                <span class="input-counter">
-                                    <span id="messageCount">0</span>
-                                    chars
-                                </span>
+    background: rgba(255, 255, 255, 0.04);
 
-                            </div>
+    border: 1px solid var(--border);
 
+    border-radius: 8px;
 
-                            <div class="field">
+    color: var(--text);
+}
 
-                                <label>
-                                    MESSAGE TYPE
-                                </label>
 
-                                <select id="messageType">
+/* ============================================================
+   CONTENT
+   ============================================================ */
 
-                                    <option value="Email">
-                                        Email
-                                    </option>
+.content {
+    width: min(1440px, 100%);
 
-                                    <option value="SMS / Message">
-                                        SMS / Message
-                                    </option>
+    margin: 0 auto;
 
-                                    <option value="Social Media">
-                                        Social Media
-                                    </option>
+    padding: 42px 42px 80px;
+}
 
-                                </select>
 
-                            </div>
+/* Views */
 
+.view {
+    display: none;
 
-                            <div class="field">
+    animation: viewIn 220ms ease;
+}
 
-                                <div class="field-label-row">
+.view.active {
+    display: block;
+}
 
-                                    <label for="messageInput">
-                                        SUSPICIOUS CONTENT
-                                    </label>
+@keyframes viewIn {
 
-                                    <button
-                                        class="clear-button"
-                                        id="clearMessage"
-                                        type="button"
-                                    >
-                                        Clear
-                                    </button>
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
 
-                                </div>
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-                                <textarea
-                                    id="messageInput"
-                                    placeholder="Paste the suspicious email, SMS, social-media message or other text here..."
-                                    spellcheck="false"
-                                ></textarea>
 
-                            </div>
+/* ============================================================
+   PAGE HEADING
+   ============================================================ */
 
+.page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 
-                            <div class="input-hints">
+    gap: 30px;
 
-                                <span>
-                                    ✓ Urgency
-                                </span>
+    margin-bottom: 30px;
+}
 
-                                <span>
-                                    ✓ Credential requests
-                                </span>
+.eyebrow {
+    margin-bottom: 8px;
 
-                                <span>
-                                    ✓ Suspicious links
-                                </span>
+    color: var(--blue-bright);
 
-                                <span>
-                                    ✓ Impersonation patterns
-                                </span>
+    font-family: "JetBrains Mono", monospace;
 
-                            </div>
+    font-size: 10px;
+    font-weight: 600;
 
+    letter-spacing: 0.14em;
+}
 
-                            <button
-                                class="scan-button"
-                                id="scanMessageButton"
-                                type="button"
-                            >
+.page-heading h2 {
+    font-size: clamp(27px, 3vw, 39px);
 
-                                <span class="scan-button-icon">
-                                    ⌁
-                                </span>
+    line-height: 1.1;
 
-                                <span>
-                                    Analyse Message
-                                </span>
+    letter-spacing: -0.035em;
 
-                                <span class="scan-arrow">
-                                    →
-                                </span>
+    font-weight: 800;
+}
 
-                            </button>
+.page-heading p {
+    max-width: 650px;
 
-                        </div>
+    margin-top: 11px;
 
+    color: var(--text-muted);
 
-                        <div class="panel result-panel">
+    font-size: 14px;
 
-                            <div class="panel-header">
+    line-height: 1.7;
+}
 
-                                <div>
 
-                                    <span class="panel-kicker">
-                                        ANALYSIS RESULT
-                                    </span>
+/* ============================================================
+   BUTTONS
+   ============================================================ */
 
-                                    <h3>
-                                        Threat Assessment
-                                    </h3>
+.primary-button,
+.secondary-button {
+    display: inline-flex;
+    align-items: center;
 
-                                </div>
+    gap: 8px;
 
-                                <span
-                                    class="result-state"
-                                    id="messageResultState"
-                                >
-                                    WAITING
-                                </span>
+    padding: 10px 15px;
 
-                            </div>
+    border-radius: 8px;
 
-                            <div
-                                class="result-empty"
-                                id="messageResultEmpty"
-                            >
+    font-size: 12px;
+    font-weight: 700;
 
-                                <div class="empty-icon">
-                                    ◇
-                                </div>
+    transition: var(--transition);
+}
 
-                                <h4>
-                                    No analysis yet
-                                </h4>
+.primary-button {
+    color: white;
 
-                                <p>
-                                    Submit a message to generate a
-                                    CyberGuard threat assessment.
-                                </p>
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
 
-                            </div>
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.18);
+}
 
-                            <div
-                                class="result-content hidden"
-                                id="messageResultContent"
-                            >
+.primary-button:hover {
+    transform: translateY(-1px);
 
-                                <div class="risk-summary">
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.28);
+}
 
-                                    <div
-                                        class="risk-indicator"
-                                        id="messageRiskIndicator"
-                                    >
+.secondary-button {
+    color: var(--text-soft);
 
-                                        <span id="messageRiskLabel">
-                                            —
-                                        </span>
+    background: rgba(255, 255, 255, 0.04);
 
-                                    </div>
+    border: 1px solid var(--border);
+}
 
-                                    <div class="risk-copy">
+.secondary-button:hover {
+    color: white;
+    border-color: var(--border-strong);
+    background: rgba(255, 255, 255, 0.07);
+}
 
-                                        <span>
-                                            THREAT CLASSIFICATION
-                                        </span>
+.text-button {
+    margin-top: 13px;
 
-                                        <strong
-                                            id="messageThreatTitle"
-                                        >
-                                            Analysis complete
-                                        </strong>
+    color: var(--blue-bright);
 
-                                        <p
-                                            id="messageThreatDescription"
-                                        >
-                                            —
-                                        </p>
+    background: transparent;
 
-                                    </div>
+    font-size: 12px;
+    font-weight: 700;
+}
 
-                                </div>
+.text-button:hover {
+    color: white;
+}
 
 
-                                <div class="result-details">
+/* ============================================================
+   SUMMARY CARDS
+   ============================================================ */
 
-                                    <div class="detail-box">
+.summary-grid {
+    display: grid;
 
-                                        <span>
-                                            CONFIDENCE
-                                        </span>
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-                                        <strong
-                                            id="messageConfidence"
-                                        >
-                                            —
-                                        </strong>
+    gap: 14px;
 
-                                    </div>
+    margin-bottom: 18px;
+}
 
-                                    <div class="detail-box">
+.summary-card {
+    position: relative;
 
-                                        <span>
-                                            INPUT TYPE
-                                        </span>
+    display: flex;
+    align-items: center;
 
-                                        <strong
-                                            id="messageInputType"
-                                        >
-                                            —
-                                        </strong>
+    gap: 13px;
 
-                                    </div>
+    min-height: 100px;
 
-                                </div>
+    padding: 18px;
 
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.035),
+            rgba(255, 255, 255, 0.018)
+        );
 
-                                <div class="result-section">
+    border: 1px solid var(--border);
 
-                                    <div class="result-section-title">
-                                        DETECTION OUTPUT
-                                    </div>
+    border-radius: var(--radius);
 
-                                    <div
-                                        class="indicator-list"
-                                        id="messageIndicators"
-                                    >
-                                    </div>
+    overflow: hidden;
+}
 
-                                <div class="user-guidance" id="messageGuidance">
+/* Engine cards are the primary entry points from the overview. */
+.engine-summary-card {
+    cursor: pointer;
+    padding-right: 18px;
+    padding-bottom: 42px;
+}
 
-                                    <div class="guidance-item">
-                                        <span class="guidance-icon">i</span>
-                                        <div>
-                                            <span class="guidance-label">WHAT THIS MEANS</span>
-                                            <p id="messageMeaning">The engine result will be explained here in plain language.</p>
-                                        </div>
-                                    </div>
+.engine-summary-card:focus-visible {
+    outline: 2px solid rgba(96, 165, 250, 0.65);
+    outline-offset: 2px;
+}
 
-                                    <div class="guidance-item recommendation">
-                                        <span class="guidance-icon">→</span>
-                                        <div>
-                                            <span class="guidance-label">RECOMMENDED ACTION</span>
-                                            <p id="messageRecommendation">Review the result before taking action.</p>
-                                        </div>
-                                    </div>
+.engine-summary-card .summary-info {
+    flex: 1;
+}
 
-                                </div>
+.summary-status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+}
 
-                                </div>
+.summary-status-row strong {
+    margin-top: 0;
+}
 
+.summary-online {
+    color: var(--green);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
 
-                                <div class="raw-result">
+.summary-action {
+    position: absolute;
+    left: 18px;
+    bottom: 14px;
 
-                                    <button
-                                        class="raw-toggle"
-                                        type="button"
-                                        data-target="messageRaw"
-                                    >
-                                        View raw engine response
-                                        <span>+</span>
-                                    </button>
+    color: var(--blue-bright);
+    font-size: 10px;
+    font-weight: 700;
 
-                                    <pre
-                                        id="messageRaw"
-                                        class="raw-content hidden"
-                                    ></pre>
+    transition: color 180ms ease, transform 180ms ease;
+}
 
-                                </div>
+.engine-summary-card:hover .summary-action {
+    color: #fff;
+    transform: translateX(2px);
+}
 
-                            </div>
+.summary-card::after {
+    content: "";
 
-                        </div>
+    position: absolute;
 
-                    </div>
+    right: -40px;
+    top: -50px;
 
+    width: 110px;
+    height: 110px;
 
-                    <!-- URL / WEBSITE ANALYSIS -->
+    border-radius: 50%;
 
-                    <div
-                        class="analysis-layout analysis-panel"
-                        id="analysis-url"
-                    >
+    background: rgba(59, 130, 246, 0.05);
 
-                        <div class="panel input-panel">
+    filter: blur(12px);
+}
 
-                            <div class="panel-header">
+.summary-icon {
+    width: 48px;
+    height: 48px;
 
-                                <div>
+    flex-shrink: 0;
 
-                                    <span class="panel-kicker">
-                                        URL & WEBSITE ANALYSIS
-                                    </span>
+    display: grid;
+    place-items: center;
 
-                                    <h3>
-                                        Inspect a suspicious destination
-                                    </h3>
+    border-radius: 11px;
 
-                                </div>
+    font-size: 22px;
+}
 
-                            </div>
+.summary-icon.blue {
+    color: var(--blue-bright);
 
+    background: rgba(59, 130, 246, 0.1);
+}
 
-                            <div class="mode-switch">
+.summary-icon.purple {
+    color: #c084fc;
 
-                                <button
-                                    class="mode-button active"
-                                    data-url-mode="url"
-                                >
-                                    Malicious URL
-                                </button>
+    background: rgba(168, 85, 247, 0.1);
+}
 
-                                <button
-                                    class="mode-button"
-                                    data-url-mode="website"
-                                >
-                                    Fraudulent Website
-                                </button>
+.summary-icon.orange {
+    color: #fb923c;
 
-                            </div>
+    background: rgba(249, 115, 22, 0.1);
+}
 
+.summary-info {
+    min-width: 0;
 
-                            <div class="field">
+    display: flex;
+    flex-direction: column;
+}
 
-                                <label for="urlInput">
-                                    WEBSITE / URL
-                                </label>
+.summary-label {
+    color: var(--text-muted);
 
-                                <input
-                                    type="url"
-                                    id="urlInput"
-                                    placeholder="https://example.com/login"
-                                    autocomplete="off"
-                                    spellcheck="false"
-                                >
+    font-size: 9px;
+    font-weight: 700;
 
-                            </div>
+    letter-spacing: 0.1em;
+}
 
+.summary-info strong {
+    margin-top: 3px;
 
-                            <div class="url-checks">
+    font-size: 13px;
+    font-weight: 700;
+}
 
-                                <div class="url-check">
+.summary-info small {
+    margin-top: 3px;
 
-                                    <span class="check-icon">
-                                        ✓
-                                    </span>
+    color: #647186;
 
-                                    <div>
+    font-size: 10px;
+}
 
-                                        <strong>
-                                            Domain analysis
-                                        </strong>
+.summary-badge {
+    position: absolute;
 
-                                        <small>
-                                            Look-alike and spoofed domains
-                                        </small>
+    right: 14px;
+    bottom: 14px;
 
-                                    </div>
+    padding: 3px 6px;
 
-                                </div>
+    border-radius: 4px;
 
+    font-family: "JetBrains Mono", monospace;
 
-                                <div class="url-check">
+    font-size: 8px;
+    font-weight: 600;
+}
 
-                                    <span class="check-icon">
-                                        ✓
-                                    </span>
+.active-badge {
+    color: var(--green);
 
-                                    <div>
+    background: rgba(34, 197, 94, 0.08);
+}
 
-                                        <strong>
-                                            URL manipulation
-                                        </strong>
+.soon-badge {
+    color: #aab4c3;
 
-                                        <small>
-                                            Suspicious URL structures
-                                        </small>
+    background: rgba(148, 163, 184, 0.08);
+}
 
-                                    </div>
 
-                                </div>
+/* ============================================================
+   PANELS
+   ============================================================ */
 
+.panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.035),
+            rgba(255, 255, 255, 0.015)
+        );
 
-                                <div class="url-check">
+    border: 1px solid var(--border);
 
-                                    <span class="check-icon">
-                                        ✓
-                                    </span>
+    border-radius: var(--radius);
 
-                                    <div>
+    box-shadow: var(--shadow);
+}
 
-                                        <strong>
-                                            Website indicators
-                                        </strong>
+.panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 
-                                        <small>
-                                            Login and deceptive patterns
-                                        </small>
+    gap: 20px;
 
-                                    </div>
+    margin-bottom: 24px;
+}
 
-                                </div>
+.panel-kicker {
+    display: block;
 
-                            </div>
+    color: #68768a;
 
+    font-family: "JetBrains Mono", monospace;
 
-                            <button
-                                class="scan-button"
-                                id="scanUrlButton"
-                                type="button"
-                            >
+    font-size: 9px;
+    font-weight: 600;
 
-                                <span class="scan-button-icon">
-                                    ↗
-                                </span>
+    letter-spacing: 0.13em;
+}
 
-                                <span>
-                                    Analyse Destination
-                                </span>
+.panel-header h3 {
+    margin-top: 5px;
 
-                                <span class="scan-arrow">
-                                    →
-                                </span>
+    font-size: 17px;
 
-                            </button>
+    letter-spacing: -0.02em;
+}
 
-                        </div>
 
+/* ============================================================
+   OVERVIEW GRID
+   ============================================================ */
 
-                        <div class="panel result-panel">
+.overview-grid {
+    display: grid;
 
-                            <div class="panel-header">
+    grid-template-columns:
+        1fr;
 
-                                <div>
+    gap: 18px;
 
-                                    <span class="panel-kicker">
-                                        ANALYSIS RESULT
-                                    </span>
+    margin-bottom: 18px;
+}
 
-                                    <h3>
-                                        URL Threat Assessment
-                                    </h3>
+.threat-panel,
+.architecture-panel {
+    min-height: 325px;
 
-                                </div>
+    padding: 25px;
+}
 
-                                <span
-                                    class="result-state"
-                                    id="urlResultState"
-                                >
-                                    WAITING
-                                </span>
+.panel-live {
+    color: var(--green);
 
-                            </div>
+    font-family: "JetBrains Mono", monospace;
 
-                            <div
-                                class="result-empty"
-                                id="urlResultEmpty"
-                            >
+    font-size: 9px;
+}
 
-                                <div class="empty-icon">
-                                    ↗
-                                </div>
 
-                                <h4>
-                                    No URL analysed
-                                </h4>
+/* Protection */
 
-                                <p>
-                                    Enter a destination to run it
-                                    through the CyberGuard engine.
-                                </p>
+.protection-visual {
+    min-height: 220px;
 
-                            </div>
+    display: grid;
+    grid-template-columns: 180px minmax(280px, 1fr) minmax(300px, 0.95fr);
+    align-items: center;
 
-                            <div
-                                class="result-content hidden"
-                                id="urlResultContent"
-                            >
+    gap: 35px;
+}
 
-                                <div class="risk-summary">
+.protection-ring {
+    position: relative;
 
-                                    <div
-                                        class="risk-indicator"
-                                        id="urlRiskIndicator"
-                                    >
+    width: 180px;
+    height: 180px;
 
-                                        <span id="urlRiskLabel">
-                                            —
-                                        </span>
+    flex-shrink: 0;
 
-                                    </div>
+    display: grid;
+    place-items: center;
 
-                                    <div class="risk-copy">
+    border-radius: 50%;
 
-                                        <span>
-                                            DESTINATION ASSESSMENT
-                                        </span>
+    background:
+        conic-gradient(
+            from -90deg,
+            var(--blue) 0deg 118deg,
+            rgba(8, 13, 22, 0.95) 118deg 121deg,
+            var(--cyan) 121deg 238deg,
+            rgba(8, 13, 22, 0.95) 238deg 241deg,
+            var(--blue-bright) 241deg 358deg,
+            rgba(8, 13, 22, 0.95) 358deg 360deg
+        );
 
-                                        <strong
-                                            id="urlThreatTitle"
-                                        >
-                                            Analysis complete
-                                        </strong>
+    box-shadow:
+        0 0 60px rgba(37, 99, 235, 0.09);
+}
 
-                                        <p
-                                            id="urlThreatDescription"
-                                        >
-                                            —
-                                        </p>
+.protection-ring::before {
+    content: "";
 
-                                    </div>
+    position: absolute;
 
-                                </div>
+    inset: 9px;
 
+    border-radius: 50%;
 
-                                <div class="url-display">
+    background: var(--panel);
+}
 
-                                    <span>
-                                        ANALYSED DESTINATION
-                                    </span>
+.ring-inner {
+    position: relative;
 
-                                    <code id="analysedUrl">
-                                        —
-                                    </code>
+    z-index: 1;
 
-                                </div>
+    display: flex;
+    flex-direction: column;
 
+    align-items: center;
+}
 
-                                <div class="result-section">
+.ring-inner span {
+    color: var(--green);
 
-                                    <div class="result-section-title">
-                                        ENGINE OUTPUT
-                                    </div>
+    font-family: "JetBrains Mono", monospace;
 
-                                    <div
-                                        class="indicator-list"
-                                        id="urlIndicators"
-                                    >
-                                    </div>
+    font-size: 9px;
+    font-weight: 600;
 
-                                <div class="user-guidance" id="urlGuidance">
+    letter-spacing: 0.1em;
+}
 
-                                    <div class="guidance-item">
-                                        <span class="guidance-icon">i</span>
-                                        <div>
-                                            <span class="guidance-label">WHAT THIS MEANS</span>
-                                            <p id="urlMeaning">The engine result will be explained here in plain language.</p>
-                                        </div>
-                                    </div>
+.ring-inner strong {
+    margin-top: 4px;
 
-                                    <div class="guidance-item recommendation">
-                                        <span class="guidance-icon">→</span>
-                                        <div>
-                                            <span class="guidance-label">RECOMMENDED ACTION</span>
-                                            <p id="urlRecommendation">Review the destination before opening it.</p>
-                                        </div>
-                                    </div>
+    font-size: 39px;
 
-                                </div>
+    line-height: 1;
 
-                                </div>
+    letter-spacing: -0.05em;
+}
 
+.ring-inner small {
+    margin-top: 5px;
 
-                                <div class="raw-result">
+    color: var(--text-muted);
 
-                                    <button
-                                        class="raw-toggle"
-                                        type="button"
-                                        data-target="urlRaw"
-                                    >
-                                        View raw engine response
-                                        <span>+</span>
-                                    </button>
+    font-size: 9px;
+}
 
-                                    <pre
-                                        id="urlRaw"
-                                        class="raw-content hidden"
-                                    ></pre>
+.protection-copy h4 {
+    font-size: 18px;
+}
 
-                                </div>
+.protection-copy p {
+    max-width: 380px;
 
-                            </div>
+    margin-top: 8px;
 
-                        </div>
+    color: var(--text-muted);
 
-                    </div>
+    font-size: 12px;
 
+    line-height: 1.7;
+}
 
-                    <!-- QR ANALYSIS -->
+.protection-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
 
-                    <div
-                        class="analysis-layout analysis-panel"
-                        id="analysis-qr"
-                    >
+.protection-status span {
+    color: var(--green);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
 
-                        <div class="panel input-panel">
+.protection-status strong {
+    color: #68768a;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
 
-                            <div class="panel-header">
+.protection-coverage {
+    min-width: 0;
+    padding-left: 28px;
+    border-left: 1px solid rgba(255, 255, 255, 0.055);
+}
 
-                                <div>
+.coverage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+}
 
-                                    <span class="panel-kicker">
-                                        QR CODE ANALYSIS
-                                    </span>
+.coverage-kicker {
+    color: #68768a;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+}
 
-                                    <h3>
-                                        Scan a suspicious QR code
-                                    </h3>
+.coverage-status {
+    color: var(--green);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
 
-                                </div>
+.coverage-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+}
 
-                            </div>
+.coverage-item {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    min-width: 0;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
 
+.coverage-item:nth-last-child(-n + 2) {
+    border-bottom: 0;
+}
 
-                            <div
-                                class="upload-zone"
-                                id="qrDropZone"
-                            >
+.coverage-index {
+    color: #4f5d70;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding-top: 1px;
+}
 
-                                <input
-                                    type="file"
-                                    id="qrInput"
-                                    accept="image/png,image/jpeg,image/webp"
-                                    hidden
-                                >
+.coverage-item strong {
+    display: block;
+    color: #d6dce5;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+}
 
-                                <div class="upload-icon">
-                                    ▦
-                                </div>
+.coverage-item small {
+    display: block;
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 10px;
+    line-height: 1.45;
+}
 
-                                <h4>
-                                    Drop QR image here
-                                </h4>
 
-                                <p>
-                                    or select an image from your device
-                                </p>
+/* Architecture */
 
-                                <button
-                                    class="upload-button"
-                                    id="chooseQrButton"
-                                    type="button"
-                                >
-                                    Choose Image
-                                </button>
+.architecture-list {
+    display: flex;
+    flex-direction: column;
+}
 
-                                <small>
-                                    PNG, JPG or WEBP
-                                </small>
+.architecture-item {
+    display: grid;
 
-                            </div>
+    grid-template-columns: 40px 1fr auto;
 
+    align-items: center;
 
-                            <div
-                                class="selected-file hidden"
-                                id="selectedQrFile"
-                            >
+    gap: 11px;
 
-                                <div class="file-icon">
-                                    IMG
-                                </div>
+    padding: 14px 0;
 
-                                <div class="file-info">
+    border-bottom: 1px solid var(--border);
+}
 
-                                    <strong id="qrFileName">
-                                        —
-                                    </strong>
+.architecture-item:last-child {
+    border-bottom: 0;
+}
 
-                                    <span id="qrFileSize">
-                                        —
-                                    </span>
+.architecture-number {
+    color: #566377;
 
-                                </div>
+    font-family: "JetBrains Mono", monospace;
 
-                                <button
-                                    id="removeQrFile"
-                                    type="button"
-                                >
-                                    ×
-                                </button>
+    font-size: 11px;
+}
 
-                            </div>
+.architecture-item strong {
+    display: block;
 
+    font-size: 12px;
+}
 
-                            <button
-                                class="scan-button"
-                                id="scanQrButton"
-                                type="button"
-                                disabled
-                            >
+.architecture-item p {
+    margin-top: 3px;
 
-                                <span class="scan-button-icon">
-                                    ▦
-                                </span>
+    color: var(--text-muted);
 
-                                <span>
-                                    Analyse QR Code
-                                </span>
+    font-size: 10px;
+}
 
-                                <span class="scan-arrow">
-                                    →
-                                </span>
+.architecture-state {
+    color: #647186;
 
-                            </button>
+    font-family: "JetBrains Mono", monospace;
 
-                        </div>
+    font-size: 8px;
+}
 
+.architecture-state.live {
+    color: var(--green);
+}
 
-                        <div class="panel result-panel">
 
-                            <div class="panel-header">
+/* ============================================================
+   QUICK PANEL
+   ============================================================ */
 
-                                <div>
+.quick-panel {
+    padding: 25px;
+}
 
-                                    <span class="panel-kicker">
-                                        QR RESULT
-                                    </span>
+.quick-actions {
+    display: grid;
 
-                                    <h3>
-                                        QR Threat Assessment
-                                    </h3>
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-                                </div>
+    gap: 10px;
+}
 
-                                <span
-                                    class="result-state"
-                                    id="qrResultState"
-                                >
-                                    WAITING
-                                </span>
+.quick-action {
+    display: flex;
+    align-items: center;
 
-                            </div>
+    gap: 12px;
 
+    padding: 14px;
 
-                            <div
-                                class="result-empty"
-                                id="qrResultEmpty"
-                            >
+    color: var(--text);
 
-                                <div class="empty-icon">
-                                    ▦
-                                </div>
+    background: rgba(255, 255, 255, 0.025);
 
-                                <h4>
-                                    No QR code analysed
-                                </h4>
+    border: 1px solid var(--border);
 
-                                <p>
-                                    Upload a QR image to inspect it
-                                    using the CyberGuard QR engine.
-                                </p>
+    border-radius: 9px;
 
-                            </div>
+    text-align: left;
 
+    transition: var(--transition);
+}
 
-                            <div
-                                class="result-content hidden"
-                                id="qrResultContent"
-                            >
+.quick-action:hover {
+    background: rgba(255, 255, 255, 0.055);
 
-                                <div class="risk-summary">
+    border-color:
+        rgba(59, 130, 246, 0.28);
 
-                                    <div
-                                        class="risk-indicator"
-                                        id="qrRiskIndicator"
-                                    >
+    transform: translateY(-1px);
+}
 
-                                        <span id="qrRiskLabel">
-                                            —
-                                        </span>
+.quick-action-icon {
+    width: 36px;
+    height: 36px;
 
-                                    </div>
+    flex-shrink: 0;
 
-                                    <div class="risk-copy">
+    display: grid;
+    place-items: center;
 
-                                        <span>
-                                            QR ASSESSMENT
-                                        </span>
+    border-radius: 9px;
 
-                                        <strong
-                                            id="qrThreatTitle"
-                                        >
-                                            Analysis complete
-                                        </strong>
+    color: var(--blue-bright);
 
-                                        <p
-                                            id="qrThreatDescription"
-                                        >
-                                            —
-                                        </p>
+    background: rgba(59, 130, 246, 0.09);
 
-                                    </div>
+    font-size: 17px;
+}
 
-                                </div>
+.quick-action span:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+}
 
+.quick-action strong {
+    font-size: 11px;
+}
 
-                                <div class="result-section">
+.quick-action small {
+    margin-top: 2px;
 
-                                    <div class="result-section-title">
-                                        ENGINE OUTPUT
-                                    </div>
+    color: var(--text-muted);
 
-                                    <div
-                                        class="indicator-list"
-                                        id="qrIndicators"
-                                    >
-                                    </div>
+    font-size: 9px;
+}
 
-                                <div class="user-guidance" id="qrGuidance">
+.quick-action .arrow {
+    margin-left: auto;
 
-                                    <div class="guidance-item">
-                                        <span class="guidance-icon">i</span>
-                                        <div>
-                                            <span class="guidance-label">WHAT THIS MEANS</span>
-                                            <p id="qrMeaning">The engine result will be explained here in plain language.</p>
-                                        </div>
-                                    </div>
+    color: #58667b;
 
-                                    <div class="guidance-item recommendation">
-                                        <span class="guidance-icon">→</span>
-                                        <div>
-                                            <span class="guidance-label">RECOMMENDED ACTION</span>
-                                            <p id="qrRecommendation">Review the decoded QR content before opening it.</p>
-                                        </div>
-                                    </div>
+    font-size: 15px;
+}
 
-                                </div>
 
-                                </div>
+/* ============================================================
+   PHISHING PAGE
+   ============================================================ */
 
+.phishing-heading {
+    align-items: center;
+}
 
-                                <div class="raw-result">
+.engine-pill {
+    display: flex;
+    align-items: center;
 
-                                    <button
-                                        class="raw-toggle"
-                                        type="button"
-                                        data-target="qrRaw"
-                                    >
-                                        View raw engine response
-                                        <span>+</span>
-                                    </button>
+    gap: 7px;
 
-                                    <pre
-                                        id="qrRaw"
-                                        class="raw-content hidden"
-                                    ></pre>
+    padding: 7px 10px;
 
-                                </div>
+    color: #7dd3fc;
 
-                            </div>
+    background: rgba(14, 165, 233, 0.06);
 
-                        </div>
+    border: 1px solid rgba(14, 165, 233, 0.14);
 
-                    </div>
+    border-radius: 999px;
 
+    font-family: "JetBrains Mono", monospace;
 
-                    <!-- Scope -->
+    font-size: 9px;
 
-                    <div class="scope-note">
+    white-space: nowrap;
+}
 
-                        <div class="scope-note-icon">
-                            i
-                        </div>
+.engine-pill span {
+    width: 6px;
+    height: 6px;
 
-                        <div>
+    border-radius: 50%;
 
-                            <strong>
-                                Current phishing coverage
-                            </strong>
+    background: var(--green);
 
-                            <p>
-                                CyberGuard is being built to analyse
-                                emails, SMS/messages, social-media
-                                messages, QR-code phishing, fraudulent
-                                websites and malicious/deceptive URLs.
-                            </p>
+    box-shadow:
+        0 0 8px rgba(34, 197, 94, 0.8);
+}
 
-                        </div>
 
-                    </div>
+/* Analysis tabs */
 
-                </section>
+.analysis-tabs {
+    display: grid;
 
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-                <!-- =============================================
-                     ACCOUNT TAKEOVER
-                ============================================== -->
+    gap: 8px;
 
-                <section
-                    class="view"
-                    id="view-takeover"
-                >
+    margin-bottom: 14px;
+}
 
-                    <div class="page-heading phishing-heading">
-                        <div>
-                            <div class="eyebrow">THREAT DETECTION / 02</div>
-                            <h2>Account Takeover Detection</h2>
-                            <p>
-                                Analyse authentication and session telemetry to identify abnormal account behaviour and potential takeover activity.
-                            </p>
-                        </div>
+.analysis-tab {
+    display: flex;
+    align-items: center;
 
-                        <div class="engine-pill takeover-engine-pill">
-                            <span></span>
-                            ACCOUNT TAKEOVER ENGINE
-                        </div>
-                    </div>
+    gap: 11px;
 
-                    <div class="takeover-layout">
-                        <div class="panel takeover-input-panel">
-                            <div class="panel-header">
-                                <div>
-                                    <span class="panel-kicker">TELEMETRY ANALYSIS</span>
-                                    <h3>Analyse organisation activity</h3>
-                                </div>
-                                <span class="input-counter" id="takeoverEventCount">0 events</span>
-                            </div>
+    padding: 12px 14px;
 
-                            <div class="takeover-info">
-                                <span class="takeover-info-icon">i</span>
-                                <p>
-                                    Upload CSV telemetry files. CyberGuard checks six takeover indicators: failed logins, password spraying, unusual locations, unknown devices, suspicious sessions and sudden behaviour changes.
-                                </p>
-                            </div>
+    color: var(--text-muted);
 
-                            <div class="field">
-                                <div class="field-label-row">
-                                    <label>EVENT TELEMETRY — CSV FILE</label>
-                                    <button class="clear-button" id="clearTakeoverEvents" type="button">Clear</button>
-                                </div>
+    background: rgba(255, 255, 255, 0.025);
 
-                                <input
-                                    type="file"
-                                    id="takeoverEventsInput"
-                                    class="takeover-file-input"
-                                    accept=".csv,text/csv"
-                                    hidden
-                                >
+    border: 1px solid var(--border);
 
-                                <label
-                                    for="takeoverEventsInput"
-                                    class="takeover-upload-box"
-                                    id="takeoverEventsUploadBox"
-                                >
-                                    <span class="takeover-upload-icon">↑</span>
-                                    <span class="takeover-upload-title">Upload event telemetry CSV</span>
-                                    <span class="takeover-upload-subtitle">Choose a .csv file containing authentication events</span>
-                                    <span class="takeover-upload-button">Choose CSV File</span>
-                                    <span class="takeover-file-name" id="takeoverEventsFileName">No file selected</span>
-                                </label>
-                            </div>
+    border-radius: 9px;
 
-                            <div class="takeover-field-grid">
-                                <div class="field">
-                                    <div class="field-label-row">
-                                        <label>OPTIONAL USER PROFILES — CSV FILE</label>
-                                        <button class="clear-button" id="clearTakeoverProfiles" type="button">Clear</button>
-                                    </div>
+    text-align: left;
 
-                                    <input
-                                        type="file"
-                                        id="takeoverProfilesInput"
-                                        class="takeover-file-input"
-                                        accept=".csv,text/csv"
-                                        hidden
-                                    >
+    transition: var(--transition);
+}
 
-                                    <label
-                                        for="takeoverProfilesInput"
-                                        class="takeover-upload-box takeover-upload-box-small"
-                                        id="takeoverProfilesUploadBox"
-                                    >
-                                        <span class="takeover-upload-icon">↑</span>
-                                        <span class="takeover-upload-title">Upload user profiles CSV</span>
-                                        <span class="takeover-upload-subtitle">Optional baseline locations and known devices</span>
-                                        <span class="takeover-upload-button">Choose CSV File</span>
-                                        <span class="takeover-file-name" id="takeoverProfilesFileName">No file selected</span>
-                                    </label>
-                                </div>
+.analysis-tab:hover {
+    color: var(--text-soft);
 
-                                <div class="takeover-format-card">
-                                    <span class="panel-kicker">EXPECTED FIELDS</span>
-                                    <div class="takeover-field-tags">
-                                        <span>timestamp</span><span>user_id</span><span>login_status</span>
-                                        <span>ip_address</span><span>location</span><span>device</span><span>session_action</span>
-                                    </div>
-                                    <p class="takeover-format-note">Files must be CSV files with a header row. Profiles are optional.</p>
-                                </div>
-                            </div>
+    background: rgba(255, 255, 255, 0.04);
+}
 
-                            <div class="takeover-actions">
-                                <button class="secondary-button" id="loadTakeoverDemo" type="button">Load Demo Scenario</button>
-                                <button class="scan-button" id="analyzeTakeoverButton" type="button">
-                                    <span class="scan-button-icon">◉</span>
-                                    <span>Analyse Account Activity</span>
-                                    <span class="scan-arrow">→</span>
-                                </button>
-                            </div>
-                        </div>
+.analysis-tab.active {
+    color: white;
 
-                        <div class="panel takeover-result-panel">
-                            <div class="panel-header">
-                                <div>
-                                    <span class="panel-kicker">ANALYSIS RESULT</span>
-                                    <h3>Account Takeover Assessment</h3>
-                                </div>
-                                <span class="result-state" id="takeoverResultState">WAITING</span>
-                            </div>
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.14),
+            rgba(37, 99, 235, 0.04)
+        );
 
-                            <div class="result-empty" id="takeoverResultEmpty">
-                                <div class="empty-icon">◉</div>
-                                <h4>No activity analysed</h4>
-                                <p>Provide organisation telemetry to generate an account takeover assessment.</p>
-                            </div>
+    border-color:
+        rgba(59, 130, 246, 0.35);
 
-                            <div class="takeover-result-content hidden" id="takeoverResultContent">
-                                <div class="takeover-summary-grid">
-                                    <div class="takeover-stat"><span>USERS ANALYSED</span><strong id="takeoverUsersAnalyzed">0</strong></div>
-                                    <div class="takeover-stat"><span>ACCOUNTS FLAGGED</span><strong id="takeoverAccountsFlagged">0</strong></div>
-                                    <div class="takeover-stat"><span>DETECTION EVENTS</span><strong id="takeoverDetectionEvents">0</strong></div>
-                                </div>
+    box-shadow:
+        inset 0 1px rgba(255, 255, 255, 0.03);
+}
 
-                                <div class="takeover-risk-overview">
-                                    <div class="takeover-risk-card high"><span>HIGH RISK</span><strong id="takeoverHighRisk">0</strong></div>
-                                    <div class="takeover-risk-card medium"><span>MEDIUM RISK</span><strong id="takeoverMediumRisk">0</strong></div>
-                                    <div class="takeover-risk-card low"><span>LOW RISK</span><strong id="takeoverLowRisk">0</strong></div>
-                                </div>
+.tab-icon {
+    width: 38px;
+    height: 38px;
 
-                                <div class="result-section takeover-accounts-section">
-                                    <div class="result-section-title">ACCOUNT RISK ASSESSMENTS</div>
-                                    <div class="takeover-account-list" id="takeoverAccountList"></div>
-                                </div>
+    display: grid;
+    place-items: center;
 
-                                <div class="result-section">
-                                    <div class="result-section-title">DETECTION EVENTS</div>
-                                    <div class="takeover-detection-list" id="takeoverDetectionList"></div>
-                                </div>
+    border-radius: 8px;
 
-                                <div class="user-guidance">
-                                    <div class="guidance-item">
-                                        <span class="guidance-icon">i</span>
-                                        <div><span class="guidance-label">WHAT THIS MEANS</span><p id="takeoverMeaning">The engine result will be explained here in plain language.</p></div>
-                                    </div>
-                                    <div class="guidance-item recommendation">
-                                        <span class="guidance-icon">→</span>
-                                        <div><span class="guidance-label">RECOMMENDED ACTION</span><p id="takeoverRecommendation">Review flagged accounts and investigate the underlying events.</p></div>
-                                    </div>
-                                </div>
+    background: rgba(255, 255, 255, 0.04);
 
-                                <div class="raw-result">
-                                    <div class="raw-result-actions">
-                                        <button class="raw-toggle" type="button" data-target="takeoverRaw">View raw engine response <span>+</span></button>
-                                        <button class="export-button" id="exportTakeoverPdf" type="button" disabled>
-                                            <span class="export-icon">↓</span>
-                                            <span>Export PDF report</span>
-                                        </button>
-                                    </div>
-                                    <pre id="takeoverRaw" class="raw-content hidden"></pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    font-size: 17px;
+}
 
-                    <div class="scope-note takeover-scope-note">
-                        <div class="scope-note-icon">i</div>
-                        <div>
-                            <strong>Organisation telemetry stays the input</strong>
-                            <p>The module analyses event data supplied by the organisation. It does not require attack labels; it derives detections and risk from the telemetry.</p>
-                        </div>
-                    </div>
+.analysis-tab.active .tab-icon {
+    color: var(--blue-bright);
 
-                </section>
+    background: rgba(59, 130, 246, 0.1);
+}
 
+.analysis-tab span:last-child {
+    display: flex;
+    flex-direction: column;
+}
 
-                <!-- =============================================
-                     DIGITAL IMPERSONATION
-                ============================================== -->
+.analysis-tab strong {
+    font-size: 11px;
+}
 
-                <section
-                    class="view"
-                    id="view-impersonation"
-                >                    <div class="page-heading phishing-heading">
-                        <div>
-                            <div class="eyebrow">THREAT DETECTION / 03</div>
-                            <h2>Digital Impersonation Detection</h2>
-                            <p>
-                                Analyse reported messages and social content to detect impersonation of government officials, senior management, financial institutions, brands and known contacts.
-                            </p>
-                        </div>
+.analysis-tab small {
+    margin-top: 2px;
 
-                        <div class="engine-pill takeover-engine-pill">
-                            <span></span>
-                            IMPERSONATION ENGINE
-                        </div>
-                    </div>
+    color: #647186;
 
-                    <div class="takeover-layout">
-                        <div class="panel takeover-input-panel">
-                            <div class="panel-header">
-                                <div>
-                                    <span class="panel-kicker">MESSAGE ANALYSIS</span>
-                                    <h3>Analyse reported messages</h3>
-                                </div>
-                                <span class="input-counter" id="impersonationMessageCount">0 messages</span>
-                            </div>
+    font-size: 9px;
+}
 
-                            <div class="takeover-info">
-                                <span class="takeover-info-icon">i</span>
-                                <p>
-                                    Upload a CSV of reported messages. CyberGuard checks six impersonation indicators: authority spoofing, executive impersonation, brand impersonation, urgency and pressure tactics, threatening language and credential harvesting.
-                                </p>
-                            </div>
+.analysis-tab.active small {
+    color: #8291a7;
+}
 
-                            <div class="field">
-                                <div class="field-label-row">
-                                    <label>REPORTED MESSAGES — CSV FILE</label>
-                                    <button class="clear-button" id="clearImpersonationMessages" type="button">Clear</button>
-                                </div>
 
-                                <input
-                                    type="file"
-                                    id="impersonationMessagesInput"
-                                    class="takeover-file-input"
-                                    accept=".csv,text/csv"
-                                    hidden
-                                >
+/* Analysis layout */
 
-                                <label
-                                    for="impersonationMessagesInput"
-                                    class="takeover-upload-box"
-                                    id="impersonationMessagesUploadBox"
-                                >
-                                    <span class="takeover-upload-icon">↑</span>
-                                    <span class="takeover-upload-title">Upload reported messages CSV</span>
-                                    <span class="takeover-upload-subtitle">Choose a .csv file containing reported impersonation messages</span>
-                                    <span class="takeover-upload-button">Choose CSV File</span>
-                                    <span class="takeover-file-name" id="impersonationMessagesFileName">No file selected</span>
-                                </label>
-                            </div>
+.analysis-panel {
+    display: none;
+}
 
-                            <div class="takeover-actions">
-                                <button class="secondary-button" id="loadImpersonationDemo" type="button">Load Demo Scenario</button>
-                                <button class="scan-button" id="analyzeImpersonationButton" type="button">
-                                    <span class="scan-button-icon">◌</span>
-                                    <span>Analyse Impersonation Risk</span>
-                                    <span class="scan-arrow">→</span>
-                                </button>
-                            </div>
-                        </div>
+.analysis-panel.active {
+    display: grid;
+}
 
-                        <div class="panel takeover-result-panel">
-                            <div class="panel-header">
-                                <div>
-                                    <span class="panel-kicker">ANALYSIS RESULT</span>
-                                    <h3>Impersonation Assessment</h3>
-                                </div>
-                                <span class="result-state" id="impersonationResultState">WAITING</span>
-                            </div>
+.analysis-layout {
+    grid-template-columns:
+        minmax(0, 0.9fr)
+        minmax(0, 1.1fr);
 
-                            <div class="result-empty" id="impersonationResultEmpty">
-                                <div class="empty-icon">◌</div>
-                                <h4>No messages analysed</h4>
-                                <p>Upload reported messages to generate an impersonation assessment.</p>
-                            </div>
+    gap: 14px;
+}
 
-                            <div class="takeover-result-content hidden" id="impersonationResultContent">
-                                <div class="takeover-summary-grid">
-                                    <div class="takeover-stat"><span>MESSAGES ANALYSED</span><strong id="impersonationMessagesAnalyzed">0</strong></div>
-                                    <div class="takeover-stat"><span>MESSAGES FLAGGED</span><strong id="impersonationMessagesFlagged">0</strong></div>
-                                    <div class="takeover-stat"><span>DETECTION EVENTS</span><strong id="impersonationDetectionEvents">0</strong></div>
-                                </div>
+.input-panel,
+.result-panel {
+    padding: 24px;
 
-                                <div class="takeover-risk-overview">
-                                    <div class="takeover-risk-card high"><span>HIGH RISK</span><strong id="impersonationHighRisk">0</strong></div>
-                                    <div class="takeover-risk-card medium"><span>MEDIUM RISK</span><strong id="impersonationMediumRisk">0</strong></div>
-                                    <div class="takeover-risk-card low"><span>LOW RISK</span><strong id="impersonationLowRisk">0</strong></div>
-                                </div>
+    min-height: 520px;
+}
 
-                                <div class="result-section takeover-accounts-section">
-                                    <div class="result-section-title">MESSAGE RISK ASSESSMENTS</div>
-                                    <div class="takeover-account-list" id="impersonationMessageList"></div>
-                                </div>
 
-                                <div class="result-section">
-                                    <div class="result-section-title">DETECTION EVENTS</div>
-                                    <div class="takeover-detection-list" id="impersonationDetectionList"></div>
-                                </div>
+/* Fields */
 
-                                <div class="result-section" id="impersonationCampaignSection">
-                                    <div class="result-section-title">CAMPAIGN SIGNALS</div>
-                                    <div class="takeover-detection-list" id="impersonationCampaignList"></div>
-                                </div>
+.field {
+    margin-bottom: 18px;
+}
 
-                                <div class="user-guidance">
-                                    <div class="guidance-item">
-                                        <span class="guidance-icon">i</span>
-                                        <div><span class="guidance-label">WHAT THIS MEANS</span><p id="impersonationMeaning">The engine result will be explained here in plain language.</p></div>
-                                    </div>
-                                    <div class="guidance-item recommendation">
-                                        <span class="guidance-icon">→</span>
-                                        <div><span class="guidance-label">RECOMMENDED ACTION</span><p id="impersonationRecommendation">Review flagged messages and verify the sender through a known channel.</p></div>
-                                    </div>
-                                </div>
+.field label,
+.field-label-row label {
+    display: block;
 
-                                <div class="raw-result">
-                                    <div class="raw-result-actions">
-                                        <button class="raw-toggle" type="button" data-target="impersonationRaw">View raw engine response <span>+</span></button>
-                                        <button class="export-button" id="exportImpersonationPdf" type="button" disabled>
-                                            <span class="export-icon">↓</span>
-                                            <span>Export PDF report</span>
-                                        </button>
-                                    </div>
-                                    <pre id="impersonationRaw" class="raw-content hidden"></pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    margin-bottom: 8px;
 
-                    <div class="scope-note takeover-scope-note">
-                        <div class="scope-note-icon">i</div>
-                        <div>
-                            <strong>Reported messages stay the input</strong>
-                            <p>The module analyses the message content reported by the organisation. It does not require an impersonation label; it derives detections and risk from the message text, claimed identity and sender context.</p>
-                        </div>
-                    </div>
+    color: #77859a;
 
-                </section>
+    font-size: 9px;
+    font-weight: 700;
 
+    letter-spacing: 0.11em;
+}
 
-                <!-- =============================================
-                     ACTIVITY
-                ============================================== -->
+.field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-                <section
-                    class="view"
-                    id="view-activity"
-                >
+.clear-button {
+    color: #5d6b7e;
 
-                    <div class="page-heading">
+    background: transparent;
 
-                        <div>
+    font-size: 9px;
+}
 
-                            <div class="eyebrow">
-                                SECURITY OPERATIONS
-                            </div>
+.clear-button:hover {
+    color: var(--text-soft);
+}
 
-                            <h2>
-                                Analysis History
-                            </h2>
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
 
-                            <p>
-                                Review analyses performed during this
-                                browser session.
-                            </p>
+    color: var(--text);
 
-                        </div>
+    background: rgba(0, 0, 0, 0.18);
 
-                        <button
-                            class="secondary-button"
-                            id="clearHistoryButton"
-                        >
-                            Clear History
-                        </button>
+    border: 1px solid var(--border-strong);
 
-                    </div>
+    border-radius: 8px;
 
+    outline: none;
 
-                    <div class="panel history-panel">
+    transition: var(--transition);
+}
 
-                        <div
-                            id="historyList"
-                            class="history-list"
-                        >
+.field input,
+.field select {
+    height: 43px;
 
-                            <div class="history-empty">
+    padding: 0 12px;
 
-                                <div>
-                                    ◷
-                                </div>
+    font-size: 12px;
+}
 
-                                <h4>
-                                    No analysis history
-                                </h4>
+.field textarea {
+    min-height: 245px;
 
-                                <p>
-                                    Completed analyses will appear here.
-                                </p>
+    padding: 13px;
 
-                            </div>
+    resize: vertical;
 
-                        </div>
+    font-family: "JetBrains Mono", monospace;
 
-                    </div>
+    font-size: 11px;
 
-                </section>
+    line-height: 1.65;
+}
 
+.field input::placeholder,
+.field textarea::placeholder {
+    color: #4e5b6e;
+}
 
-                <!-- =============================================
-                     ORGANISATION
-                ============================================== -->
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    border-color:
+        rgba(59, 130, 246, 0.6);
 
-                <section
-                    class="view"
-                    id="view-organisation"
-                >
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.07);
+}
 
-                    <div class="page-heading">
+.field select {
+    appearance: none;
 
-                        <div>
+    background-image:
+        linear-gradient(45deg, transparent 50%, #66758a 50%),
+        linear-gradient(135deg, #66758a 50%, transparent 50%);
 
-                            <div class="eyebrow">
-                                ORGANISATION PROFILE
-                            </div>
+    background-position:
+        calc(100% - 16px) 18px,
+        calc(100% - 12px) 18px;
 
-                            <h2>
-                                Organisation Settings
-                            </h2>
+    background-size:
+        4px 4px,
+        4px 4px;
 
-                            <p>
-                                Configure the organisation context used
-                                throughout the CyberGuard interface.
-                            </p>
+    background-repeat: no-repeat;
+}
 
-                        </div>
 
-                    </div>
+/* Input hints */
 
+.input-hints {
+    display: flex;
+    flex-wrap: wrap;
 
-                    <div class="organisation-layout">
+    gap: 5px;
 
-                        <div class="panel organisation-card">
+    margin: -4px 0 18px;
+}
 
-                            <div class="organisation-logo">
-                                O
-                            </div>
+.input-hints span {
+    padding: 4px 7px;
 
-                            <div>
+    color: #718096;
 
-                                <span class="panel-kicker">
-                                    CURRENT ORGANISATION
-                                </span>
+    background: rgba(255, 255, 255, 0.025);
 
-                                <h3 id="organisationDisplayName">
-                                    Your Organisation
-                                </h3>
+    border: 1px solid var(--border);
 
-                                <p>
-                                    CyberGuard organisation security
-                                    workspace.
-                                </p>
+    border-radius: 4px;
 
-                            </div>
+    font-size: 8px;
+}
 
-                        </div>
 
+/* Scan button */
 
-                        <div class="panel settings-panel">
+.scan-button {
+    width: 100%;
 
-                            <div class="panel-header">
+    min-height: 45px;
 
-                                <div>
+    display: flex;
+    align-items: center;
 
-                                    <span class="panel-kicker">
-                                        CONFIGURATION
-                                    </span>
+    gap: 9px;
 
-                                    <h3>
-                                        Organisation Context
-                                    </h3>
+    padding: 0 13px;
 
-                                </div>
+    color: white;
 
-                            </div>
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
 
+    border-radius: 8px;
 
-                            <div class="field">
+    font-size: 11px;
+    font-weight: 700;
 
-                                <label for="organisationInput">
-                                    ORGANISATION NAME
-                                </label>
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.12);
 
-                                <input
-                                    type="text"
-                                    id="organisationInput"
-                                    placeholder="Enter organisation name"
-                                >
+    transition: var(--transition);
+}
 
-                            </div>
+.scan-button:hover:not(:disabled) {
+    transform: translateY(-1px);
 
+    box-shadow:
+        0 14px 30px rgba(37, 99, 235, 0.22);
+}
 
-                            <button
-                                class="scan-button"
-                                id="saveOrganisationButton"
-                                type="button"
-                            >
+.scan-button:disabled {
+    cursor: not-allowed;
 
-                                <span>
-                                    Save Organisation
-                                </span>
+    opacity: 0.35;
 
-                                <span class="scan-arrow">
-                                    →
-                                </span>
+    box-shadow: none;
+}
 
-                            </button>
+.scan-button-icon {
+    font-size: 17px;
+}
 
-                            <p class="settings-note">
-                                This currently changes the interface
-                                context only. It does not change the
-                                underlying ML model.
-                            </p>
+.scan-arrow {
+    margin-left: auto;
 
-                        </div>
+    font-size: 15px;
+}
 
-                    </div>
 
-                </section>
+/* ============================================================
+   URL MODE
+   ============================================================ */
 
-            </div>
+.mode-switch {
+    display: grid;
 
-        </main>
+    grid-template-columns: 1fr 1fr;
 
-    </div>
+    gap: 5px;
 
+    padding: 4px;
 
-    <!-- =========================================================
-         GLOBAL LOADING OVERLAY
-    ========================================================== -->
+    margin-bottom: 20px;
 
-    <div
-        class="loading-overlay hidden"
-        id="loadingOverlay"
-    >
+    background: rgba(0, 0, 0, 0.18);
 
-        <div class="loading-card">
+    border: 1px solid var(--border);
 
-            <div class="loader"></div>
+    border-radius: 8px;
+}
 
-            <span id="loadingTitle">
-                Analysing
-            </span>
+.mode-button {
+    padding: 8px;
 
-            <p id="loadingDescription">
-                CyberGuard detection engine is processing your input.
-            </p>
+    color: var(--text-muted);
 
-        </div>
+    background: transparent;
 
-    </div>
+    border-radius: 6px;
 
+    font-size: 10px;
+    font-weight: 600;
+}
 
-    <!-- =========================================================
-         TOAST
-    ========================================================== -->
+.mode-button.active {
+    color: white;
 
-    <div
-        class="toast"
-        id="toast"
-    >
+    background: rgba(255, 255, 255, 0.07);
+}
 
-        <span
-            class="toast-icon"
-            id="toastIcon"
-        >
-            ✓
-        </span>
+.url-checks {
+    display: flex;
+    flex-direction: column;
 
-        <div>
+    gap: 7px;
 
-            <strong id="toastTitle">
-                Done
-            </strong>
+    margin-bottom: 24px;
+}
 
-            <p id="toastMessage">
-                Operation completed.
-            </p>
+.url-check {
+    display: flex;
+    align-items: center;
 
-        </div>
+    gap: 9px;
 
-        <button
-            id="toastClose"
-            type="button"
-        >
-            ×
-        </button>
+    padding: 10px;
 
-    </div>
+    background: rgba(255, 255, 255, 0.02);
 
+    border: 1px solid var(--border);
 
-    <!-- =========================================================
-         NEW ANALYSIS MODAL
-    ========================================================== -->
+    border-radius: 7px;
+}
 
-    <div
-        class="new-analysis-modal hidden"
-        id="newAnalysisModal"
-        aria-hidden="true"
-    >
+.check-icon {
+    width: 20px;
+    height: 20px;
 
-        <div
-            class="new-analysis-backdrop"
-            data-new-analysis-close
-        ></div>
+    display: grid;
+    place-items: center;
 
-        <div
-            class="new-analysis-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="newAnalysisTitle"
-        >
+    color: var(--green);
 
-            <div class="new-analysis-header">
+    background: rgba(34, 197, 94, 0.08);
 
-                <div>
+    border-radius: 5px;
 
-                    <span class="panel-kicker">
-                        SECURITY ANALYSIS
-                    </span>
+    font-size: 10px;
+}
 
-                    <h3 id="newAnalysisTitle">
-                        Start a New Analysis
-                    </h3>
+.url-check div {
+    display: flex;
+    flex-direction: column;
+}
 
-                    <p>
-                        Choose the protection engine you want to use.
-                    </p>
+.url-check strong {
+    font-size: 10px;
+}
 
-                </div>
+.url-check small {
+    margin-top: 1px;
 
-                <button
-                    class="new-analysis-close"
-                    id="closeNewAnalysisButton"
-                    type="button"
-                    aria-label="Close new analysis"
-                >
-                    ×
-                </button>
+    color: var(--text-muted);
 
-            </div>
+    font-size: 9px;
+}
 
-            <div class="new-analysis-options">
 
-                <button
-                    class="new-analysis-option phishing-option"
-                    type="button"
-                    data-new-analysis="phishing"
-                    data-analysis="message"
-                >
+/* ============================================================
+   RESULT PANEL
+   ============================================================ */
 
-                    <span class="new-analysis-icon">⌁</span>
+.result-state {
+    padding: 4px 7px;
 
-                    <span class="new-analysis-copy">
-                        <strong>Phishing Detection</strong>
-                        <small>
-                            Analyse messages, URLs, websites and QR codes.
-                        </small>
-                    </span>
+    color: #718096;
 
-                    <span class="new-analysis-arrow">→</span>
+    background: rgba(148, 163, 184, 0.06);
 
-                </button>
+    border-radius: 4px;
 
+    font-family: "JetBrains Mono", monospace;
 
-                <button
-                    class="new-analysis-option takeover-option"
-                    type="button"
-                    data-new-analysis="takeover"
-                >
+    font-size: 8px;
+}
 
-                    <span class="new-analysis-icon">◉</span>
+.result-state.processing {
+    color: var(--blue-bright);
 
-                    <span class="new-analysis-copy">
-                        <strong>Account Takeover</strong>
-                        <small>
-                            Analyse login, device, location and session activity.
-                        </small>
-                    </span>
+    background: rgba(59, 130, 246, 0.08);
+}
 
-                    <span class="new-analysis-arrow">→</span>
+.result-state.success {
+    color: var(--green);
 
-                </button>
+    background: rgba(34, 197, 94, 0.08);
+}
 
+.result-state.danger {
+    color: var(--red);
 
-                <button
-                    class="new-analysis-option impersonation-option"
-                    type="button"
-                    data-new-analysis="impersonation"
-                >
+    background: rgba(239, 68, 68, 0.08);
+}
 
-                    <span class="new-analysis-icon">◌</span>
+.result-empty {
+    min-height: 360px;
 
-                    <span class="new-analysis-copy">
-                        <strong>Digital Impersonation</strong>
-                        <small>
-                            Analyse suspicious identity and impersonation attempts.
-                        </small>
-                    </span>
+    display: flex;
+    flex-direction: column;
 
-                    <span class="new-analysis-arrow">→</span>
+    align-items: center;
+    justify-content: center;
 
-                </button>
+    text-align: center;
+}
 
-            </div>
+.empty-icon {
+    width: 62px;
+    height: 62px;
 
-        </div>
+    display: grid;
+    place-items: center;
 
-    </div>
+    margin-bottom: 16px;
 
+    color: #4e5d71;
 
-    <!-- Main JavaScript -->
-    <script src="./vendor/jspdf.umd.min.js?v=2.5.1" defer></script>
-    <script src="./pdf-report.js?v=20261003" defer></script>
-    <script src="./script.js?v=20261003" defer></script>
+    background: rgba(255, 255, 255, 0.025);
 
-</body>
-</html>
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    font-size: 26px;
+}
+
+.result-empty h4 {
+    font-size: 14px;
+}
+
+.result-empty p {
+    max-width: 280px;
+
+    margin-top: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Risk summary */
+
+.risk-summary {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+}
+
+.risk-indicator {
+    width: 70px;
+    height: 70px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: rgba(59, 130, 246, 0.08);
+
+    border: 1px solid rgba(59, 130, 246, 0.16);
+
+    color: var(--blue-bright);
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-align: center;
+
+    padding: 8px;
+}
+
+.risk-indicator.safe {
+    color: var(--green);
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border-color: rgba(34, 197, 94, 0.16);
+}
+
+.risk-indicator.warning {
+    color: var(--yellow);
+
+    background: rgba(245, 158, 11, 0.08);
+
+    border-color: rgba(245, 158, 11, 0.16);
+}
+
+.risk-indicator.danger {
+    color: var(--red);
+
+    background: rgba(239, 68, 68, 0.08);
+
+    border-color: rgba(239, 68, 68, 0.16);
+}
+
+.risk-copy span {
+    color: #68768a;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+.risk-copy strong {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 16px;
+}
+
+.risk-copy p {
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* Details */
+
+.result-details {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin-top: 9px;
+}
+
+.detail-box {
+    padding: 11px;
+
+    background: rgba(255, 255, 255, 0.02);
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+.detail-box span {
+    display: block;
+
+    color: #637085;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+.detail-box strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--text-soft);
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 11px;
+}
+
+
+/* Result sections */
+
+.result-section {
+    margin-top: 17px;
+}
+
+.result-section-title {
+    margin-bottom: 8px;
+
+    color: #68768a;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+}
+
+.indicator-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.indicator {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 8px;
+
+    padding: 8px;
+
+    color: var(--text-soft);
+
+    background: rgba(255, 255, 255, 0.02);
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+.indicator::before {
+    content: "•";
+
+    color: var(--blue-bright);
+
+    font-weight: 800;
+}
+
+
+/* URL display */
+
+.url-display {
+    margin-top: 10px;
+
+    padding: 11px;
+
+    background: rgba(0, 0, 0, 0.18);
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+.url-display span {
+    display: block;
+
+    color: #637085;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.1em;
+}
+
+.url-display code {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #93c5fd;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 10px;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* Human-readable guidance */
+
+.user-guidance {
+    display: grid;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.guidance-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 12px;
+    background: rgba(59, 130, 246, 0.045);
+    border: 1px solid rgba(59, 130, 246, 0.12);
+    border-radius: 9px;
+}
+
+.guidance-item.recommendation {
+    background: rgba(34, 197, 94, 0.035);
+    border-color: rgba(34, 197, 94, 0.12);
+}
+
+.guidance-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 7px;
+    color: var(--blue-bright);
+    background: rgba(59, 130, 246, 0.10);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.guidance-item.recommendation .guidance-icon {
+    color: var(--green);
+    background: rgba(34, 197, 94, 0.09);
+}
+
+.guidance-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #718096;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+}
+
+.guidance-item p {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+/* Raw */
+
+.raw-result {
+    margin-top: 15px;
+}
+
+.raw-toggle {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 9px;
+
+    color: #647186;
+
+    background: rgba(255, 255, 255, 0.018);
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    text-align: left;
+
+    font-size: 9px;
+}
+
+.raw-toggle:hover {
+    color: var(--text-soft);
+}
+
+.raw-content {
+    max-height: 190px;
+
+    margin-top: 5px;
+
+    padding: 11px;
+
+    overflow: auto;
+
+    color: #94a3b8;
+
+    background: #080d14;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    white-space: pre-wrap;
+}
+
+
+/* ============================================================
+   QR UPLOAD
+   ============================================================ */
+
+.upload-zone {
+    min-height: 290px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.012),
+            rgba(255, 255, 255, 0.012) 10px,
+            transparent 10px,
+            transparent 20px
+        );
+
+    border: 1px dashed #334155;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    transition: var(--transition);
+}
+
+.upload-zone.dragover {
+    border-color: var(--blue);
+
+    background:
+        rgba(59, 130, 246, 0.05);
+}
+
+.upload-icon {
+    width: 60px;
+    height: 60px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 13px;
+
+    color: var(--blue-bright);
+
+    background: rgba(59, 130, 246, 0.08);
+
+    border: 1px solid rgba(59, 130, 246, 0.13);
+
+    border-radius: 15px;
+
+    font-size: 26px;
+}
+
+.upload-zone h4 {
+    font-size: 13px;
+}
+
+.upload-zone p {
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+.upload-button {
+    margin-top: 15px;
+
+    padding: 8px 12px;
+
+    color: var(--text-soft);
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid var(--border-strong);
+
+    border-radius: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.upload-button:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.upload-zone small {
+    margin-top: 10px;
+
+    color: #4e5b6e;
+
+    font-size: 8px;
+}
+
+.selected-file {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 12px 0;
+
+    padding: 10px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+.file-icon {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--blue-bright);
+
+    background: rgba(59, 130, 246, 0.08);
+
+    border-radius: 7px;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 8px;
+}
+
+.file-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.file-info strong {
+    max-width: 270px;
+
+    overflow: hidden;
+
+    color: var(--text-soft);
+
+    font-size: 10px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-info span {
+    margin-top: 2px;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+.selected-file button {
+    width: 24px;
+    height: 24px;
+
+    margin-left: auto;
+
+    color: #69778a;
+
+    background: transparent;
+
+    border-radius: 5px;
+
+    font-size: 18px;
+}
+
+.selected-file button:hover {
+    color: var(--red);
+
+    background: rgba(239, 68, 68, 0.07);
+}
+
+
+/* ============================================================
+   SCOPE NOTE
+   ============================================================ */
+
+.scope-note {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 14px;
+
+    padding: 12px;
+
+    background: rgba(59, 130, 246, 0.035);
+
+    border: 1px solid rgba(59, 130, 246, 0.1);
+
+    border-radius: 8px;
+}
+
+.scope-note-icon {
+    width: 21px;
+    height: 21px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--blue-bright);
+
+    background: rgba(59, 130, 246, 0.08);
+
+    border-radius: 50%;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.scope-note strong {
+    display: block;
+
+    color: #9cb5d7;
+
+    font-size: 10px;
+}
+
+.scope-note p {
+    margin-top: 3px;
+
+    color: #637085;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   COMING SOON
+   ============================================================ */
+
+.coming-soon {
+    min-height: 500px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(59, 130, 246, 0.05),
+            transparent 40%
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    text-align: center;
+}
+
+.coming-icon {
+    width: 80px;
+    height: 80px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 20px;
+
+    color: #a78bfa;
+
+    background: rgba(168, 85, 247, 0.07);
+
+    border: 1px solid rgba(168, 85, 247, 0.12);
+
+    border-radius: 22px;
+
+    font-size: 35px;
+}
+
+.coming-label {
+    color: #9ca8b9;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 0.15em;
+}
+
+.coming-soon h3 {
+    margin-top: 9px;
+
+    font-size: 21px;
+}
+
+.coming-soon p {
+    max-width: 610px;
+
+    margin-top: 9px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+.planned-features {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 22px;
+}
+
+.planned-features span {
+    padding: 6px 9px;
+
+    color: #758297;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid var(--border);
+
+    border-radius: 5px;
+
+    font-size: 9px;
+}
+
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
+
+.history-panel {
+    padding: 24px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-item {
+    display: grid;
+
+    grid-template-columns:
+        38px 1fr auto;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.history-item:last-child {
+    border-bottom: 0;
+}
+
+.history-type {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--blue-bright);
+
+    background: rgba(59, 130, 246, 0.08);
+
+    border-radius: 8px;
+
+    font-size: 15px;
+}
+
+.history-main strong {
+    display: block;
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+}
+
+.history-main p {
+    margin-top: 2px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+.history-time {
+    color: #566377;
+
+    font-family: "JetBrains Mono", monospace;
+
+    font-size: 8px;
+}
+
+.history-empty {
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #526074;
+}
+
+.history-empty > div {
+    font-size: 31px;
+}
+
+.history-empty h4 {
+    margin-top: 10px;
+
+    color: var(--text-soft);
+
+    font-size: 13px;
+}
+
+.history-empty p {
+    margin-top: 4px;
+
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   ORGANISATION
+   ============================================================ */
+
+.organisation-layout {
+    display: grid;
+
+    grid-template-columns:
+        0.8fr 1.2fr;
+
+    gap: 15px;
+}
+
+.organisation-card,
+.settings-panel {
+    padding: 25px;
+}
+
+.organisation-card {
+    min-height: 280px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.organisation-logo {
+    width: 82px;
+    height: 82px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 17px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 40px rgba(37, 99, 235, 0.16);
+
+    font-size: 29px;
+    font-weight: 800;
+}
+
+.organisation-card h3 {
+    margin-top: 7px;
+
+    font-size: 19px;
+}
+
+.organisation-card p {
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+.settings-panel {
+    min-height: 280px;
+}
+
+.settings-note {
+    margin-top: 12px;
+
+    color: #566377;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   NEW ANALYSIS MODAL
+   ============================================================ */
+
+.new-analysis-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 450;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.new-analysis-modal.hidden {
+    display: none;
+}
+
+.new-analysis-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 6, 11, 0.72);
+    backdrop-filter: blur(10px);
+}
+
+.new-analysis-dialog {
+    position: relative;
+    width: min(620px, 100%);
+    padding: 24px;
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(59, 130, 246, 0.08),
+            transparent 34%
+        ),
+        var(--panel);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.52),
+        0 0 80px rgba(37, 99, 235, 0.08);
+    animation: newAnalysisIn 180ms ease both;
+}
+
+.new-analysis-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.new-analysis-header h3 {
+    margin-top: 5px;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+}
+
+.new-analysis-header p {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.new-analysis-close {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    color: var(--text-soft);
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 21px;
+    line-height: 1;
+    transition: var(--transition);
+}
+
+.new-analysis-close:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--border-strong);
+}
+
+.new-analysis-options {
+    display: grid;
+    gap: 9px;
+}
+
+.new-analysis-option {
+    width: 100%;
+    min-height: 78px;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 14px;
+    text-align: left;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.018);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+.new-analysis-option:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(96, 165, 250, 0.25);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+}
+
+.new-analysis-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.phishing-option .new-analysis-icon {
+    color: var(--blue-bright);
+    background: rgba(59, 130, 246, 0.11);
+}
+
+.takeover-option .new-analysis-icon {
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.10);
+}
+
+.impersonation-option .new-analysis-icon {
+    color: #fb923c;
+    background: rgba(249, 115, 22, 0.10);
+}
+
+.new-analysis-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.new-analysis-copy strong {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.new-analysis-copy small {
+    color: var(--text-muted);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.new-analysis-arrow {
+    color: var(--text-muted);
+    font-size: 16px;
+    transition: transform var(--transition), color var(--transition);
+}
+
+.new-analysis-option:hover .new-analysis-arrow {
+    color: var(--blue-bright);
+    transform: translateX(3px);
+}
+
+@keyframes newAnalysisIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .new-analysis-modal {
+        padding: 14px;
+    }
+
+    .new-analysis-dialog {
+        padding: 18px;
+    }
+
+    .new-analysis-header h3 {
+        font-size: 19px;
+    }
+
+    .new-analysis-option {
+        grid-template-columns: 40px minmax(0, 1fr) auto;
+        gap: 10px;
+        padding: 11px;
+    }
+
+    .new-analysis-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+.loading-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    background: rgba(3, 6, 11, 0.76);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 500;
+}
+
+.loading-card {
+    width: min(330px, calc(100% - 30px));
+
+    padding: 28px;
+
+    background: #0d141f;
+
+    border: 1px solid var(--border-strong);
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.5);
+}
+
+.loader {
+    width: 38px;
+    height: 38px;
+
+    margin: 0 auto 15px;
+
+    border: 3px solid rgba(255, 255, 255, 0.08);
+
+    border-top-color: var(--blue);
+
+    border-right-color: var(--cyan);
+
+    border-radius: 50%;
+
+    animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-card span {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.loading-card p {
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+
+.toast {
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    width: min(370px, calc(100% - 30px));
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 12px;
+
+    background: #111a27;
+
+    border: 1px solid var(--border-strong);
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.35);
+
+    transform: translateY(20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 220ms ease;
+
+    z-index: 600;
+}
+
+.toast.show {
+    transform: translateY(0);
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.toast-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--green);
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border-radius: 8px;
+}
+
+.toast strong {
+    display: block;
+
+    font-size: 10px;
+}
+
+.toast p {
+    margin-top: 2px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+.toast button {
+    margin-left: auto;
+
+    color: #617087;
+
+    background: transparent;
+
+    font-size: 18px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .content {
+        padding: 32px 25px 60px;
+    }
+
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .input-panel,
+    .result-panel {
+        min-height: auto;
+    }
+
+    .organisation-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    :root {
+        --sidebar-width: 240px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        padding: 0 20px;
+    }
+
+    .connection-status {
+        display: none;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+
+        transition: transform 220ms ease;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+
+        box-shadow:
+            20px 0 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .main {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .content {
+        padding: 28px 16px 50px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .phishing-heading {
+        align-items: flex-start;
+    }
+
+    .analysis-tabs {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-tab {
+        min-height: 55px;
+    }
+
+    .protection-visual {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .protection-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .protection-status {
+        justify-content: center;
+    }
+
+    .protection-coverage {
+        width: 100%;
+        padding-left: 0;
+        padding-top: 20px;
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.055);
+        text-align: left;
+    }
+
+    .protection-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .threat-panel,
+    .architecture-panel,
+    .quick-panel,
+    .input-panel,
+    .result-panel {
+        padding: 18px;
+    }
+
+    .topbar-right {
+        gap: 8px;
+    }
+
+    .organisation-chip {
+        max-width: 150px;
+    }
+
+    .organisation-chip span:last-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .breadcrumb {
+        font-size: 11px;
+    }
+
+    .page-heading h2 {
+        font-size: 28px;
+    }
+
+    .risk-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .result-details {
+        grid-template-columns: 1fr;
+    }
+
+    .protection-ring {
+        width: 150px;
+        height: 150px;
+    }
+
+    .architecture-item {
+        grid-template-columns: 30px 1fr;
+    }
+
+    .architecture-state {
+        display: none;
+    }
+}
+
+
+/* ============================================================
+   CYBERGUARD UI / UX ENHANCEMENT LAYER
+   Visual-only additions. Existing layout and component selectors
+   remain compatible with the current HTML and JavaScript.
+   ============================================================ */
+
+:root {
+    --cg-glow-blue: rgba(59, 130, 246, 0.22);
+    --cg-glow-cyan: rgba(34, 211, 238, 0.16);
+    --cg-surface-line: rgba(255, 255, 255, 0.055);
+    --cg-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Ambient security-grid texture */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.26;
+    background-image:
+        linear-gradient(rgba(96, 165, 250, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96, 165, 250, 0.018) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+/* Slightly richer top-right ambient glow */
+body::after {
+    content: "";
+    position: fixed;
+    width: 520px;
+    height: 520px;
+    right: -260px;
+    top: 80px;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.075), transparent 68%);
+    filter: blur(20px);
+}
+
+/* Brand micro-interaction */
+.brand-mark {
+    transition:
+        transform 260ms var(--cg-ease),
+        box-shadow 260ms var(--cg-ease);
+}
+
+.brand:hover .brand-mark {
+    transform: rotate(-4deg) scale(1.05);
+    box-shadow:
+        0 0 32px rgba(37, 99, 235, 0.34),
+        0 0 70px rgba(34, 211, 238, 0.08);
+}
+
+/* Navigation feels more responsive without changing behavior */
+.nav-item {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.nav-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--cyan), var(--blue));
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 220ms var(--cg-ease);
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+    transform: scaleY(1);
+}
+
+.nav-item:hover {
+    transform: translateX(2px);
+}
+
+.nav-icon {
+    transition:
+        color 180ms ease,
+        transform 220ms var(--cg-ease);
+}
+
+.nav-item:hover .nav-icon,
+.nav-item.active .nav-icon {
+    transform: scale(1.08);
+}
+
+/* Live indicators get a restrained pulse */
+.nav-status.live,
+.system-dot,
+.connection-dot,
+.engine-pill > span {
+    animation: cgPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes cgPulse {
+    0%, 100% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+    50% {
+        opacity: 0.58;
+        filter: brightness(1.25);
+    }
+}
+
+/* Topbar polish */
+.topbar {
+    transition:
+        background 220ms ease,
+        box-shadow 220ms ease;
+}
+
+.topbar:hover {
+    background: rgba(7, 11, 18, 0.91);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.organisation-chip {
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms var(--cg-ease);
+}
+
+.organisation-chip:hover {
+    border-color: rgba(96, 165, 250, 0.25);
+    background: rgba(96, 165, 250, 0.055);
+    transform: translateY(-1px);
+}
+
+/* Buttons */
+.primary-button,
+.secondary-button,
+.scan-button,
+.text-button,
+.quick-action,
+.analysis-tab,
+.clear-button,
+.raw-toggle,
+.choose-file-button,
+.remove-file-button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.primary-button,
+.secondary-button,
+.scan-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.primary-button::before,
+.scan-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(255,255,255,0.14) 48%,
+        transparent 76%
+    );
+    transform: translateX(-130%);
+    transition: transform 520ms ease;
+    pointer-events: none;
+}
+
+.primary-button:hover::before,
+.scan-button:hover::before {
+    transform: translateX(130%);
+}
+
+.primary-button:active,
+.secondary-button:active,
+.scan-button:active,
+.quick-action:active,
+.analysis-tab:active {
+    transform: translateY(1px) scale(0.985);
+}
+
+/* Cards lift very slightly on interaction */
+.summary-card,
+.panel,
+.quick-action {
+    transition:
+        border-color 220ms ease,
+        background 220ms ease,
+        box-shadow 260ms var(--cg-ease),
+        transform 260ms var(--cg-ease);
+}
+
+.summary-card:hover,
+.panel:hover {
+    border-color: rgba(96, 165, 250, 0.13);
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(96, 165, 250, 0.025);
+}
+
+.quick-action {
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-action::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(59, 130, 246, 0.045),
+        transparent 52%
+    );
+    opacity: 0;
+    transition: opacity 220ms ease;
+}
+
+.quick-action:hover::before {
+    opacity: 1;
+}
+
+.quick-action:hover {
+    transform: translateX(3px);
+    border-color: rgba(96, 165, 250, 0.16);
+}
+
+/* Security ring breathing effect */
+.protection-ring {
+    animation: cgRingBreath 4.5s ease-in-out infinite;
+}
+
+@keyframes cgRingBreath {
+    0%, 100% {
+        box-shadow: 0 0 60px rgba(37, 99, 235, 0.09);
+    }
+    50% {
+        box-shadow:
+            0 0 70px rgba(37, 99, 235, 0.15),
+            0 0 110px rgba(34, 211, 238, 0.035);
+    }
+}
+
+/* Architecture rows */
+.architecture-item {
+    transition:
+        background 200ms ease,
+        border-color 200ms ease,
+        transform 220ms var(--cg-ease);
+}
+
+.architecture-item:hover {
+    background: rgba(255, 255, 255, 0.026);
+    border-color: rgba(255, 255, 255, 0.09);
+    transform: translateX(3px);
+}
+
+.architecture-number {
+    transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
+}
+
+.architecture-item:hover .architecture-number {
+    color: var(--blue-bright);
+    border-color: rgba(96, 165, 250, 0.18);
+    background: rgba(59, 130, 246, 0.06);
+}
+
+/* Analysis tabs */
+.analysis-tabs {
+    position: relative;
+}
+
+.analysis-tab {
+    position: relative;
+    overflow: hidden;
+    transition:
+        color 200ms ease,
+        border-color 200ms ease,
+        background 200ms ease,
+        transform 180ms var(--cg-ease);
+}
+
+.analysis-tab::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 0;
+    height: 2px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    transform: scaleX(0);
+    transition: transform 260ms var(--cg-ease);
+}
+
+.analysis-tab:hover::after,
+.analysis-tab.active::after {
+    transform: scaleX(1);
+}
+
+.analysis-tab.active {
+    box-shadow:
+        inset 0 0 0 1px rgba(96, 165, 250, 0.055),
+        0 10px 35px rgba(37, 99, 235, 0.035);
+}
+
+.tab-icon {
+    transition:
+        transform 240ms var(--cg-ease),
+        box-shadow 240ms ease;
+}
+
+.analysis-tab:hover .tab-icon,
+.analysis-tab.active .tab-icon {
+    transform: scale(1.07);
+}
+
+/* Inputs */
+.field textarea,
+.field input,
+.field select {
+    transition:
+        border-color 180ms ease,
+        box-shadow 220ms ease,
+        background 180ms ease,
+        transform 180ms var(--cg-ease);
+}
+
+.field textarea:focus,
+.field input:focus,
+.field select:focus {
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.075),
+        0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Character counter subtly reacts to typing */
+.input-counter {
+    transition:
+        color 180ms ease,
+        transform 180ms var(--cg-ease);
+}
+
+.input-counter.is-active {
+    color: var(--blue-bright);
+    transform: translateY(-1px);
+}
+
+/* Upload area */
+.qr-drop-zone {
+    position: relative;
+    transition:
+        border-color 220ms ease,
+        background 220ms ease,
+        transform 220ms var(--cg-ease),
+        box-shadow 240ms ease;
+}
+
+.qr-drop-zone::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px dashed rgba(96, 165, 250, 0.0);
+    border-radius: 10px;
+    pointer-events: none;
+    transition: border-color 220ms ease;
+}
+
+.qr-drop-zone:hover {
+    transform: translateY(-2px);
+    border-color: rgba(96, 165, 250, 0.28);
+    background: rgba(59, 130, 246, 0.025);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.16);
+}
+
+.qr-drop-zone:hover::before {
+    border-color: rgba(96, 165, 250, 0.10);
+}
+
+.qr-drop-zone.drag-over {
+    transform: scale(1.01);
+    border-color: var(--blue-bright);
+    background: rgba(59, 130, 246, 0.07);
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.055),
+        0 20px 55px rgba(37, 99, 235, 0.10);
+}
+
+/* Result reveal */
+.result-content:not(.hidden) {
+    animation: cgResultIn 360ms var(--cg-ease);
+}
+
+@keyframes cgResultIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.risk-summary {
+    animation: cgResultIn 380ms var(--cg-ease);
+}
+
+.detail-box {
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 200ms var(--cg-ease);
+}
+
+.detail-box:hover {
+    transform: translateY(-1px);
+    border-color: rgba(96, 165, 250, 0.13);
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.indicator-item {
+    animation: cgIndicatorIn 300ms var(--cg-ease) both;
+}
+
+.indicator-item:nth-child(2) { animation-delay: 35ms; }
+.indicator-item:nth-child(3) { animation-delay: 70ms; }
+.indicator-item:nth-child(4) { animation-delay: 105ms; }
+.indicator-item:nth-child(5) { animation-delay: 140ms; }
+
+@keyframes cgIndicatorIn {
+    from {
+        opacity: 0;
+        transform: translateX(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Loading overlay */
+.loading-overlay {
+    backdrop-filter: blur(8px);
+    background: rgba(3, 6, 11, 0.68);
+}
+
+.loading-card {
+    position: relative;
+    overflow: hidden;
+    border-color: rgba(96, 165, 250, 0.14);
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.42),
+        0 0 70px rgba(37, 99, 235, 0.08);
+}
+
+.loading-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -35%;
+    width: 35%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--blue), transparent);
+    animation: cgScanLine 1.7s linear infinite;
+}
+
+@keyframes cgScanLine {
+    from { transform: translateX(0); }
+    to { transform: translateX(390%); }
+}
+
+.loader {
+    box-shadow:
+        0 0 25px rgba(59, 130, 246, 0.18);
+}
+
+/* Toast */
+.toast {
+    transition:
+        opacity 220ms ease,
+        transform 260ms var(--cg-ease);
+    box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(255, 255, 255, 0.015);
+}
+
+/* Mobile sidebar overlay */
+@media (max-width: 900px) {
+    .sidebar.mobile-open {
+        box-shadow:
+            25px 0 80px rgba(0, 0, 0, 0.45);
+        animation: cgSidebarIn 240ms var(--cg-ease);
+    }
+
+    @keyframes cgSidebarIn {
+        from {
+            opacity: 0;
+            transform: translateX(-18px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================================
+   ACCOUNT TAKEOVER MODULE
+   ============================================================ */
+.takeover-engine-pill { color:#c4b5fd; background:rgba(168,85,247,.06); border-color:rgba(168,85,247,.18); }
+.takeover-layout { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:14px; }
+.takeover-input-panel,.takeover-result-panel { padding:24px; min-height:650px; }
+.takeover-info { display:flex; align-items:flex-start; gap:10px; padding:11px 12px; margin-bottom:18px; color:var(--text-muted); background:rgba(59,130,246,.035); border:1px solid rgba(59,130,246,.12); border-radius:8px; font-size: 10px; line-height:1.6; }
+.takeover-info-icon { width:20px;height:20px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;color:var(--blue-bright);background:rgba(59,130,246,.1);font-family:"JetBrains Mono",monospace;font-size: 10px;font-weight:700; }
+.takeover-info p { margin:0; }
+.takeover-field-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.72fr); gap:12px; align-items:stretch; }
+.takeover-format-card { padding:13px; background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:8px; }
+.takeover-format-note { margin:12px 0 0; color:var(--text-muted); font-size: 9px; line-height:1.55; }
+.takeover-upload-box { min-height:290px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; padding:28px 20px; text-align:center; cursor:pointer; border:1px dashed rgba(96,165,250,.28); border-radius:10px; background:linear-gradient(135deg,rgba(59,130,246,.045),rgba(255,255,255,.015)); transition:border-color .2s ease,background .2s ease,transform .2s ease; box-sizing:border-box; overflow:hidden; }
+.takeover-upload-box:hover { border-color:rgba(96,165,250,.65); background:rgba(59,130,246,.07); }
+.takeover-upload-box.dragover { border-color:var(--blue-bright); background:rgba(59,130,246,.1); transform:translateY(-1px); }
+.takeover-upload-box-small { min-height:180px; padding:22px 14px; }
+.takeover-upload-box > * { flex:0 0 auto; display:block; max-width:100%; }
+.takeover-upload-box .takeover-upload-button { display:inline-flex; align-items:center; justify-content:center; align-self:center; white-space:nowrap; }
+.takeover-upload-icon { width:38px; height:38px; display:grid; place-items:center; border-radius:10px; color:var(--blue-bright); background:rgba(59,130,246,.1); border:1px solid rgba(96,165,250,.18); font-size: 21px; font-weight:700; }
+.takeover-upload-title { color:var(--text); font-size: 12px; font-weight:700; }
+.takeover-upload-subtitle { max-width:390px; width:100%; color:var(--text-muted); font-size: 9px; line-height:1.5; }
+.takeover-upload-button { margin-top:4px; padding:8px 12px; color:#dbeafe; background:rgba(59,130,246,.12); border:1px solid rgba(96,165,250,.22); border-radius:6px; font-size: 9px; font-weight:700; }
+.takeover-file-name { display:block; width:100%; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#64748b; font-family:"JetBrains Mono",monospace; font-size: 8px; }
+.takeover-file-name.loaded { color:#86efac; }
+.takeover-field-tags { display:flex;flex-wrap:wrap;gap:5px;margin-top:10px; }
+.takeover-field-tags span,.takeover-detector-tags span { padding:4px 6px;color:#91a0b4;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:4px;font-family:"JetBrains Mono",monospace;font-size: 8px; }
+.takeover-actions { display:grid;grid-template-columns:.42fr 1fr;gap:9px;margin-top:14px; align-items:stretch; }
+.takeover-actions .secondary-button { justify-content:center; }
+.takeover-result-content { animation:cgResultIn 360ms var(--cg-ease); }
+.takeover-summary-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px; }
+.takeover-stat { padding:12px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px; }
+.takeover-stat span,.takeover-risk-card span,.takeover-account-label,.takeover-account-score span,.takeover-reasons>span { display:block;color:#637085;font-family:"JetBrains Mono",monospace;font-size: 8px;font-weight:700;letter-spacing:.1em; }
+.takeover-stat strong { display:block;margin-top:5px;color:var(--text);font-size: 20px; }
+.takeover-risk-overview { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px; }
+.takeover-risk-card { padding:11px;border:1px solid var(--border);border-radius:8px; }
+.takeover-risk-card strong { display:block;margin-top:3px;font-size: 18px; }
+.takeover-risk-card.high { background:rgba(239,68,68,.045);border-color:rgba(239,68,68,.13); }
+.takeover-risk-card.high span,.takeover-risk-card.high strong { color:#f87171; }
+.takeover-risk-card.medium { background:rgba(245,158,11,.045);border-color:rgba(245,158,11,.13); }
+.takeover-risk-card.medium span,.takeover-risk-card.medium strong { color:#fbbf24; }
+.takeover-risk-card.low { background:rgba(34,197,94,.045);border-color:rgba(34,197,94,.13); }
+.takeover-risk-card.low span,.takeover-risk-card.low strong { color:#4ade80; }
+.takeover-accounts-section { margin-top:18px; }
+.takeover-account-list,.takeover-detection-list { display:flex;flex-direction:column;gap:7px; }
+.takeover-account-card { padding:12px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-left:2px solid #64748b;border-radius:8px; }
+.takeover-account-card.high { border-left-color:var(--red); }.takeover-account-card.medium { border-left-color:var(--yellow); }.takeover-account-card.low { border-left-color:var(--green); }
+.takeover-account-top { display:flex;align-items:center;justify-content:space-between;gap:10px; }
+.takeover-account-top strong { display:block;margin-top:3px;font-size: 12px; }
+.takeover-risk-badge { padding:4px 7px;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size: 8px;font-weight:700; }
+.takeover-risk-badge.high { color:#f87171;background:rgba(239,68,68,.08); }.takeover-risk-badge.medium { color:#fbbf24;background:rgba(245,158,11,.08); }.takeover-risk-badge.low { color:#4ade80;background:rgba(34,197,94,.08); }
+.takeover-account-score { display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--border); }
+.takeover-account-score strong { color:var(--text-soft);font-family:"JetBrains Mono",monospace;font-size: 11px; }
+.takeover-detector-tags { display:flex;flex-wrap:wrap;gap:4px;margin-top:8px; }.takeover-reasons { margin-top:9px; }.takeover-reasons ul { margin:5px 0 0 15px;color:var(--text-muted);font-size: 9px;line-height:1.55; }
+.takeover-detection-card { display:flex;align-items:flex-start;gap:9px;padding:9px;background:rgba(255,255,255,.018);border:1px solid var(--border);border-radius:7px; }
+.takeover-detection-icon { width:23px;height:23px;flex:0 0 auto;display:grid;place-items:center;color:var(--yellow);background:rgba(245,158,11,.08);border-radius:6px;font-size: 10px;font-weight:800; }
+.takeover-detection-main { min-width:0;flex:1; }.takeover-detection-main strong { display:block;color:var(--text-soft);font-size: 10px; }.takeover-detection-main span { display:block;margin-top:2px;color:#66758a;font-family:"JetBrains Mono",monospace;font-size: 8px; }.takeover-detection-main p { margin-top:4px;color:var(--text-muted);font-size: 9px;line-height:1.4; }.takeover-detection-risk { color:#fbbf24;font-family:"JetBrains Mono",monospace;font-size: 8px; }
+.takeover-no-threat,.takeover-error-card { display:flex;align-items:flex-start;gap:10px;padding:13px;background:rgba(34,197,94,.035);border:1px solid rgba(34,197,94,.12);border-radius:8px; }
+.takeover-no-threat>span { width:23px;height:23px;display:grid;place-items:center;color:var(--green);background:rgba(34,197,94,.08);border-radius:6px;font-size: 11px; }.takeover-no-threat strong,.takeover-error-card strong { display:block;font-size: 10px; }.takeover-no-threat p,.takeover-error-card p { margin-top:3px;color:var(--text-muted);font-size: 9px;line-height:1.5; }.takeover-no-threat.compact { padding:10px; }
+.takeover-error-card { background:rgba(239,68,68,.035);border-color:rgba(239,68,68,.13); }.takeover-error-card strong { color:#f87171; }.takeover-scope-note { margin-top:14px; }
+@media (max-width:1100px) { .takeover-layout { grid-template-columns:1fr; } }
+@media (max-width:700px) { .takeover-field-grid,.takeover-actions,.takeover-summary-grid,.takeover-risk-overview { grid-template-columns:1fr; } }
+
+/* Impersonation message excerpt inside a risk card. */
+.takeover-excerpt { margin:8px 0 0; padding:7px 9px; color:var(--text-muted); background:rgba(255,255,255,.015); border-left:2px solid rgba(148,163,184,.22); border-radius:0 6px 6px 0; font-size: 9px; line-height:1.6; }
+
+/* ============================================================
+   RESULT EXPORT
+   ============================================================ */
+
+.raw-result-actions {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.raw-result-actions .raw-toggle {
+    flex: 1 1 auto;
+}
+
+.export-button {
+    flex: 0 0 auto;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 9px 13px;
+
+    color: var(--blue-bright);
+    background: rgba(59, 130, 246, 0.07);
+
+    border: 1px solid rgba(96, 165, 250, 0.22);
+    border-radius: 7px;
+
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.export-button:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.14);
+    border-color: rgba(96, 165, 250, 0.45);
+    color: #93c5fd;
+    transform: translateY(-1px);
+}
+
+.export-button:disabled {
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.015);
+    border-color: var(--border);
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.export-button.exporting .export-icon {
+    animation: cg-export-spin 700ms linear infinite;
+}
+
+@keyframes cg-export-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 700px) {
+    .raw-result-actions { flex-direction: column; }
+}
+
+/* ============================================================
+   PROTECTION ENGINE STACK
+   ============================================================ */
+
+.engine-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.engine-stack-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    margin: 2px 0 4px;
+}
+
+.engine-stack-heading h3 {
+    margin-top: 5px;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+}
+
+.engine-stack-count {
+    color: var(--green);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.engine-stack-card {
+    display: grid;
+    grid-template-columns: 34px 46px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 146px;
+    padding: 20px 20px;
+}
+
+.engine-stack-card .summary-icon {
+    width: 46px;
+    height: 46px;
+}
+
+.engine-number {
+    color: #566377;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.engine-stack-card .summary-info {
+    min-width: 0;
+}
+
+.engine-description {
+    display: block;
+    max-width: 820px;
+    margin: 7px 0 0;
+    color: #8b98aa;
+    font-size: 11px;
+    line-height: 1.65;
+}
+
+.engine-capabilities {
+    display: block;
+    margin-top: 9px;
+    color: #758297;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    line-height: 1.5;
+    letter-spacing: 0.035em;
+}
+
+.engine-stack-card .summary-action {
+    position: static;
+    align-self: center;
+    white-space: nowrap;
+}
+
+.engine-stack-card:hover .engine-number {
+    color: var(--blue-bright);
+}
+
+@media (max-width: 850px) {
+    .engine-stack-card {
+        grid-template-columns: 30px 43px minmax(0, 1fr);
+    }
+
+    .engine-stack-card .summary-action {
+        grid-column: 3;
+        justify-self: start;
+        margin-top: 2px;
+    }
+}
+
+@media (max-width: 700px) {
+    .engine-stack-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .engine-stack-card {
+        grid-template-columns: 28px 43px minmax(0, 1fr);
+        gap: 12px;
+        min-height: 150px;
+        padding: 16px;
+    }
+
+    .engine-stack-card .summary-action {
+        grid-column: 3;
+    }
+}
+
+@media (max-width: 480px) {
+    .engine-stack-card {
+        grid-template-columns: 26px 40px minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .engine-stack-card .summary-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .coverage-list {
+        grid-template-columns: 1fr;
+    }
+
+    .coverage-item:nth-last-child(-n + 2) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .coverage-item:last-child {
+        border-bottom: 0;
+    }
+}
