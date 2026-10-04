@@ -86,7 +86,7 @@
                 >
                     <span class="nav-icon">◉</span>
                     <span>Account Takeover</span>
-                    <span class="nav-status live"></span>
+                    <span class="nav-status upcoming"></span>
                 </button>
 
                 <button
@@ -95,7 +95,7 @@
                 >
                     <span class="nav-icon">◌</span>
                     <span>Digital Impersonation</span>
-                    <span class="nav-status live"></span>
+                    <span class="nav-status upcoming"></span>
                 </button>
 
             </div>
@@ -2132,6 +2132,126 @@
         >
             ×
         </button>
+
+    </div>
+
+
+    <!-- =========================================================
+         NEW ANALYSIS MODAL
+    ========================================================== -->
+
+    <div
+        class="new-analysis-modal hidden"
+        id="newAnalysisModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="new-analysis-backdrop"
+            data-new-analysis-close
+        ></div>
+
+        <div
+            class="new-analysis-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="newAnalysisTitle"
+        >
+
+            <div class="new-analysis-header">
+
+                <div>
+
+                    <span class="panel-kicker">
+                        SECURITY ANALYSIS
+                    </span>
+
+                    <h3 id="newAnalysisTitle">
+                        Start a New Analysis
+                    </h3>
+
+                    <p>
+                        Choose the protection engine you want to use.
+                    </p>
+
+                </div>
+
+                <button
+                    class="new-analysis-close"
+                    id="closeNewAnalysisButton"
+                    type="button"
+                    aria-label="Close new analysis"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="new-analysis-options">
+
+                <button
+                    class="new-analysis-option phishing-option"
+                    type="button"
+                    data-new-analysis="phishing"
+                    data-analysis="message"
+                >
+
+                    <span class="new-analysis-icon">⌁</span>
+
+                    <span class="new-analysis-copy">
+                        <strong>Phishing Detection</strong>
+                        <small>
+                            Analyse messages, URLs, websites and QR codes.
+                        </small>
+                    </span>
+
+                    <span class="new-analysis-arrow">→</span>
+
+                </button>
+
+
+                <button
+                    class="new-analysis-option takeover-option"
+                    type="button"
+                    data-new-analysis="takeover"
+                >
+
+                    <span class="new-analysis-icon">◉</span>
+
+                    <span class="new-analysis-copy">
+                        <strong>Account Takeover</strong>
+                        <small>
+                            Analyse login, device, location and session activity.
+                        </small>
+                    </span>
+
+                    <span class="new-analysis-arrow">→</span>
+
+                </button>
+
+
+                <button
+                    class="new-analysis-option impersonation-option"
+                    type="button"
+                    data-new-analysis="impersonation"
+                >
+
+                    <span class="new-analysis-icon">◌</span>
+
+                    <span class="new-analysis-copy">
+                        <strong>Digital Impersonation</strong>
+                        <small>
+                            Analyse suspicious identity and impersonation attempts.
+                        </small>
+                    </span>
+
+                    <span class="new-analysis-arrow">→</span>
+
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
