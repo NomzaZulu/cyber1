@@ -279,6 +279,22 @@ function initializeNavigation() {
                     );
                 }
             );
+
+            button.addEventListener(
+                "keydown",
+                event => {
+
+                    if (event.key !== "Enter" && event.key !== " ") {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    navigateTo(
+                        button.dataset.viewTarget
+                    );
+                }
+            );
         }
     );
 }
