@@ -754,6 +754,58 @@ a {
     overflow: hidden;
 }
 
+/* Engine cards are the primary entry points from the overview. */
+.engine-summary-card {
+    cursor: pointer;
+    padding-right: 18px;
+    padding-bottom: 42px;
+}
+
+.engine-summary-card:focus-visible {
+    outline: 2px solid rgba(96, 165, 250, 0.65);
+    outline-offset: 2px;
+}
+
+.engine-summary-card .summary-info {
+    flex: 1;
+}
+
+.summary-status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+}
+
+.summary-status-row strong {
+    margin-top: 0;
+}
+
+.summary-online {
+    color: var(--green);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.summary-action {
+    position: absolute;
+    left: 18px;
+    bottom: 14px;
+
+    color: var(--blue-bright);
+    font-size: 9px;
+    font-weight: 700;
+
+    transition: color 180ms ease, transform 180ms ease;
+}
+
+.engine-summary-card:hover .summary-action {
+    color: #fff;
+    transform: translateX(2px);
+}
+
 .summary-card::after {
     content: "";
 
