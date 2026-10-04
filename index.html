@@ -86,7 +86,7 @@
                 >
                     <span class="nav-icon">◉</span>
                     <span>Account Takeover</span>
-                    <span class="nav-status live"></span>
+                    <span class="nav-status upcoming"></span>
                 </button>
 
                 <button
@@ -95,7 +95,7 @@
                 >
                     <span class="nav-icon">◌</span>
                     <span>Digital Impersonation</span>
-                    <span class="nav-status live"></span>
+                    <span class="nav-status upcoming"></span>
                 </button>
 
             </div>
@@ -254,120 +254,6 @@
                     </div>
 
 
-                    <!-- Security Summary -->
-
-                    <div class="summary-grid">
-
-                        <div
-                            class="summary-card engine-summary-card"
-                            data-view-target="phishing"
-                            role="button"
-                            tabindex="0"
-                            aria-label="Open Phishing Detection"
-                        >
-
-                            <div class="summary-icon blue">
-                                ⌁
-                            </div>
-
-                            <div class="summary-info">
-
-                                <span class="summary-label">
-                                    PHISHING DETECTION
-                                </span>
-
-                                <div class="summary-status-row">
-                                    <strong>ACTIVE</strong>
-                                    <span class="summary-online">● ONLINE</span>
-                                </div>
-
-                                <small>
-                                    Messages · URLs · QR codes · websites
-                                </small>
-
-                            </div>
-
-                            <span class="summary-action">
-                                Open Scanner →
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="summary-card engine-summary-card"
-                            data-view-target="takeover"
-                            role="button"
-                            tabindex="0"
-                            aria-label="Open Account Takeover Detection"
-                        >
-
-                            <div class="summary-icon purple">
-                                ◉
-                            </div>
-
-                            <div class="summary-info">
-
-                                <span class="summary-label">
-                                    ACCOUNT TAKEOVER
-                                </span>
-
-                                <div class="summary-status-row">
-                                    <strong>ACTIVE</strong>
-                                    <span class="summary-online">● ONLINE</span>
-                                </div>
-
-                                <small>
-                                    Login · devices · locations · sessions
-                                </small>
-
-                            </div>
-
-                            <span class="summary-action">
-                                Analyse Activity →
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="summary-card engine-summary-card"
-                            data-view-target="impersonation"
-                            role="button"
-                            tabindex="0"
-                            aria-label="Open Digital Impersonation Detection"
-                        >
-
-                            <div class="summary-icon orange">
-                                ◌
-                            </div>
-
-                            <div class="summary-info">
-
-                                <span class="summary-label">
-                                    DIGITAL IMPERSONATION
-                                </span>
-
-                                <div class="summary-status-row">
-                                    <strong>ACTIVE</strong>
-                                    <span class="summary-online">● ONLINE</span>
-                                </div>
-
-                                <small>
-                                    Authority · executive · brand impersonation
-                                </small>
-
-                            </div>
-
-                            <span class="summary-action">
-                                Analyse Messages →
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
                     <!-- Main Overview Grid -->
 
                     <div class="overview-grid">
@@ -435,6 +321,93 @@
                         </div>
 
 
+
+                    </div>
+
+
+                    <!-- Protection Engines -->
+
+                    <div class="engine-stack">
+
+                        <div class="engine-stack-heading">
+                            <div>
+                                <span class="panel-kicker">PROTECTION ENGINES</span>
+                                <h3>Security Analysis Modes</h3>
+                            </div>
+                            <span class="engine-stack-count">03 / 03 ONLINE</span>
+                        </div>
+
+                        <div
+                            class="summary-card engine-summary-card engine-stack-card"
+                            data-view-target="phishing"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Open Phishing Detection"
+                        >
+                            <span class="engine-number">01</span>
+
+                            <div class="summary-icon blue">⌁</div>
+
+                            <div class="summary-info">
+                                <span class="summary-label">PHISHING DETECTION</span>
+                                <div class="summary-status-row">
+                                    <strong>ACTIVE</strong>
+                                    <span class="summary-online">● ONLINE</span>
+                                </div>
+                                <small>Detect suspicious messages, deceptive URLs, websites and QR-based phishing.</small>
+                                <span class="engine-capabilities">Messages · URLs · Websites · QR codes</span>
+                            </div>
+
+                            <span class="summary-action">Open Scanner →</span>
+                        </div>
+
+                        <div
+                            class="summary-card engine-summary-card engine-stack-card"
+                            data-view-target="takeover"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Open Account Takeover Detection"
+                        >
+                            <span class="engine-number">02</span>
+
+                            <div class="summary-icon purple">◉</div>
+
+                            <div class="summary-info">
+                                <span class="summary-label">ACCOUNT TAKEOVER</span>
+                                <div class="summary-status-row">
+                                    <strong>ACTIVE</strong>
+                                    <span class="summary-online">● ONLINE</span>
+                                </div>
+                                <small>Detect abnormal login and account behaviour across your organisation.</small>
+                                <span class="engine-capabilities">Logins · Devices · Locations · Sessions</span>
+                            </div>
+
+                            <span class="summary-action">Analyse Activity →</span>
+                        </div>
+
+                        <div
+                            class="summary-card engine-summary-card engine-stack-card"
+                            data-view-target="impersonation"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Open Digital Impersonation Detection"
+                        >
+                            <span class="engine-number">03</span>
+
+                            <div class="summary-icon orange">◌</div>
+
+                            <div class="summary-info">
+                                <span class="summary-label">DIGITAL IMPERSONATION</span>
+                                <div class="summary-status-row">
+                                    <strong>ACTIVE</strong>
+                                    <span class="summary-online">● ONLINE</span>
+                                </div>
+                                <small>Detect attempts to impersonate authorities, executives and trusted brands.</small>
+                                <span class="engine-capabilities">Authority · Executive · Brand · Identity</span>
+                            </div>
+
+                            <span class="summary-action">Analyse Messages →</span>
+                        </div>
 
                     </div>
 
