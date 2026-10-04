@@ -503,18 +503,110 @@ function initializeQuickActions() {
     const openPhishingButton =
         $("#openPhishingButton");
 
+    const newAnalysisModal =
+        $("#newAnalysisModal");
+
+    const closeNewAnalysisButton =
+        $("#closeNewAnalysisButton");
+
+    const openNewAnalysisModal = () => {
+
+        if (!newAnalysisModal) {
+            return;
+        }
+
+        newAnalysisModal.classList.remove("hidden");
+        newAnalysisModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.style.overflow = "hidden";
+
+        closeNewAnalysisButton?.focus();
+    };
+
+    const closeNewAnalysisModal = () => {
+
+        if (!newAnalysisModal) {
+            return;
+        }
+
+        newAnalysisModal.classList.add("hidden");
+        newAnalysisModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.style.overflow = "";
+    };
+
     if (openPhishingButton) {
 
         openPhishingButton.addEventListener(
             "click",
-            () => {
-
-                navigateTo("phishing");
-
-                activateAnalysis("message");
-            }
+            openNewAnalysisModal
         );
     }
+
+    closeNewAnalysisButton?.addEventListener(
+        "click",
+        closeNewAnalysisModal
+    );
+
+    $$('[data-new-analysis-close]').forEach(
+        element => {
+
+            element.addEventListener(
+                "click",
+                closeNewAnalysisModal
+            );
+        }
+    );
+
+    $$("[data-new-analysis]").forEach(
+        option => {
+
+            option.addEventListener(
+                "click",
+                () => {
+
+                    const target =
+                        option.dataset.newAnalysis;
+
+                    if (!target) {
+                        return;
+                    }
+
+                    closeNewAnalysisModal();
+
+                    navigateTo(target);
+
+                    if (target === "phishing") {
+
+                        activateAnalysis(
+                            option.dataset.analysis ||
+                            "message"
+                        );
+                    }
+                }
+            );
+        }
+    );
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                newAnalysisModal &&
+                !newAnalysisModal.classList.contains("hidden")
+            ) {
+                closeNewAnalysisModal();
+            }
+        }
+    );
 }
 
 
