@@ -970,16 +970,39 @@ a {
 
     border-radius: 50%;
 
+    /*
+     * Three fully active segments.
+     * Each segment represents one of CyberGuard's
+     * three active protection engines.
+     */
     background:
         conic-gradient(
-            var(--blue) 0deg,
-            var(--cyan) 210deg,
-            rgba(59, 130, 246, 0.08) 210deg,
-            rgba(59, 130, 246, 0.08) 360deg
+            from -90deg,
+
+            /* Engine 1 */
+            var(--blue) 0deg 118deg,
+
+            /* Small separator */
+            rgba(8, 13, 22, 0.95) 118deg 121deg,
+
+            /* Engine 2 */
+            var(--cyan) 121deg 238deg,
+
+            /* Small separator */
+            rgba(8, 13, 22, 0.95) 238deg 241deg,
+
+            /* Engine 3 */
+            var(--blue-bright) 241deg 358deg,
+
+            /* Final separator */
+            rgba(8, 13, 22, 0.95) 358deg 360deg
         );
 
     box-shadow:
-        0 0 60px rgba(37, 99, 235, 0.09);
+        0 0 45px rgba(37, 99, 235, 0.12),
+        0 0 75px rgba(34, 211, 238, 0.05);
+
+    animation: cgRingBreath 4.5s ease-in-out infinite;
 }
 
 .protection-ring::before {
@@ -3235,12 +3258,15 @@ body::after {
 
 @keyframes cgRingBreath {
     0%, 100% {
-        box-shadow: 0 0 60px rgba(37, 99, 235, 0.09);
+        box-shadow:
+            0 0 45px rgba(37, 99, 235, 0.12),
+            0 0 75px rgba(34, 211, 238, 0.05);
     }
+
     50% {
         box-shadow:
-            0 0 70px rgba(37, 99, 235, 0.15),
-            0 0 110px rgba(34, 211, 238, 0.035);
+            0 0 60px rgba(37, 99, 235, 0.18),
+            0 0 95px rgba(34, 211, 238, 0.08);
     }
 }
 
