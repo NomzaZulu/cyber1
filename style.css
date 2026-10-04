@@ -3915,3 +3915,127 @@ body::after {
 @media (max-width: 700px) {
     .raw-result-actions { flex-direction: column; }
 }
+
+/* ============================================================
+   PROTECTION ENGINE STACK
+   ============================================================ */
+
+.engine-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.engine-stack-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    margin: 2px 0 4px;
+}
+
+.engine-stack-heading h3 {
+    margin-top: 5px;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+}
+
+.engine-stack-count {
+    color: var(--green);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.engine-stack-card {
+    display: grid;
+    grid-template-columns: 34px 46px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 118px;
+    padding: 18px 20px;
+}
+
+.engine-stack-card .summary-icon {
+    width: 46px;
+    height: 46px;
+}
+
+.engine-number {
+    color: #566377;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.engine-stack-card .summary-info small {
+    display: block;
+    max-width: 760px;
+    line-height: 1.55;
+}
+
+.engine-capabilities {
+    display: block;
+    margin-top: 7px;
+    color: #758297;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7px;
+    letter-spacing: 0.035em;
+}
+
+.engine-stack-card .summary-action {
+    position: static;
+    align-self: center;
+    white-space: nowrap;
+}
+
+.engine-stack-card:hover .engine-number {
+    color: var(--blue-bright);
+}
+
+@media (max-width: 850px) {
+    .engine-stack-card {
+        grid-template-columns: 30px 43px minmax(0, 1fr);
+    }
+
+    .engine-stack-card .summary-action {
+        grid-column: 3;
+        justify-self: start;
+        margin-top: 2px;
+    }
+}
+
+@media (max-width: 700px) {
+    .engine-stack-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .engine-stack-card {
+        grid-template-columns: 28px 43px minmax(0, 1fr);
+        gap: 12px;
+        min-height: 125px;
+        padding: 16px;
+    }
+
+    .engine-stack-card .summary-action {
+        grid-column: 3;
+    }
+}
+
+@media (max-width: 480px) {
+    .engine-stack-card {
+        grid-template-columns: 26px 40px minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .engine-stack-card .summary-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
